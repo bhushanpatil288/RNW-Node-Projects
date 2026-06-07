@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Student</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="flex justify-between">
+
+            <div>
+                <a href="/" class="home-btn btn">
+                    Home
+                </a>
+            </div>
+
+            <div>
+                <a href="/students/students-list" class="home-btn btn">
+                    View students
+                </a>
+            </div>
+
+        </div>
+    </header>
+    <main class="mt-100">
+        <section class="form-section flex items-center justify-center text-center gap-10">
+            <form action="/students/edit/<%= student.id %>" method="post">
+                <h2>Update student info</h2>
+
+                <div class="flex flex-col gap-10 mt-10">
+                    <input 
+                        type="text"
+                        name="name"
+                        placeholder="Full Name"
+                        value="<%= student.name%>"
+                        required
+                    >
+                    <input 
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        required
+                        value="<%= student.email%>"
+                    >
+                    <input 
+                        type="text"
+                        name="course"
+                        placeholder="Course"
+                        required
+                        value="<%= student.course%>"
+                    >
+                    <input 
+                        type="text"
+                        name="phone"
+                        placeholder="Phone"
+                        required
+                        value="<%= student.phone%>"
+                    >
+                    <button type="submit" class="btn border-none pointer" onClick = "return confirmUpdate()">
+                        Update student data
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <script>
+            function confirmUpdate() {
+                return confirm(
+                    "Confirm student data update"
+                )
+            }
+        </script>
+    </main>
+</body>
+
+</html>

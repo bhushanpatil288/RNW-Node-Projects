@@ -1,0 +1,248 @@
+:root {
+    --gap: 2px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: aliceblue;
+}
+
+/* ============================ Common ============================ */
+
+
+.btn {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    transition: all 0.1s linear;
+}
+.btn:hover {
+    scale: 1.05;
+}
+.btn:active {
+    scale: 0.95;
+}
+
+.btn-all {
+    background-color: lightblue;
+    color: #101010;
+}
+
+.w-full {
+    width: 100vw;
+}
+.h-full {
+    height: 100vh;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.flex-col {
+    flex-direction: column;
+}
+.justify-center {
+    justify-content: center;
+}
+.justify-between {
+    justify-content: space-between;
+}
+.items-center {
+    align-items: center;
+}
+
+.gap-10 {
+    gap: calc(var(--gap) * 10);
+}
+.px-10 {
+    padding: 0 calc(var(--gap) * 10);
+}
+.py-10 {
+    padding-top: calc(var(--gap) * 10);
+    padding-bottom: calc(var(--gap) * 10);
+}
+.mt-10 {
+    margin-top: calc(var(--gap) * 10);
+}
+.mt-100 {
+    margin-top: calc(var(--gap) * 100);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.border-none {
+    border: 0px;
+}
+
+
+
+/* ============================ Add Students ============================ */
+
+header {
+    padding: 20px 10px;
+}
+
+input {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+}
+input:active {
+    border: none;
+}
+
+.form-section form {
+    max-width: 75%;
+}
+
+
+/* ============================ Students List ============================ */
+
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.student-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: 0.25s ease;
+}
+
+.student-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-details h3 {
+    color: #111827;
+    margin-bottom: 0.2rem;
+}
+
+.user-details span {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.card-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info span {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.5px;
+}
+
+.info p {
+    color: #111827;
+    font-weight: 500;
+}
+
+.actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.actions a {
+    text-decoration: none;
+    padding: 0.65rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.actions a:nth-child(1) {
+    background: #2563eb;
+    color: white;
+}
+
+.actions a:nth-child(1):hover {
+    background: #1d4ed8;
+}
+
+.actions a:nth-child(2) {
+    background: #ef4444;
+    color: white;
+}
+
+.actions a:nth-child(2):hover {
+    background: #dc2626;
+}
+
+.actions a:nth-child(3) {
+    background: #10b981;
+    color: white;
+}
+
+.actions a:nth-child(3):hover {
+    background: #059669;
+}
+
+.no-data {
+    text-align: center;
+    background: white;
+    padding: 3rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.no-data h2 {
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.no-data p {
+    color: #6b7280;
+}
