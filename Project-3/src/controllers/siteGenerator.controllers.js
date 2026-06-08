@@ -85,6 +85,19 @@ const blogPage = (req, res) => {
     res.render("pages/blog", data);
 }
 
+const contactPage = (req, res) => {
+    const data = {
+        title: "Aero Page | Contact",
+        logo: "logo.png"
+    };
+    
+    res.render("pages/contact", data);
+}
+
+const email = (req, res) => {
+    console.log("Newsletter Email:", req.body.email);
+    res.redirect("/");
+}
 
 module.exports = { 
     homePage,
@@ -94,5 +107,7 @@ module.exports = {
     pricingPage,
     servicesPage,
     testimonialPage,
-    blogPage
+    blogPage,
+    contactPage,
+    email
 };

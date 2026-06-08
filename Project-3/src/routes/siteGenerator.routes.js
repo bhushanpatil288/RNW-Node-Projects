@@ -8,7 +8,9 @@ const {
     pricingPage,
     servicesPage,
     testimonialPage,
-    blogPage
+    blogPage,
+    contactPage,
+    email
 } = require("../controllers/siteGenerator.controllers");
 
 router.get("/", homePage);
@@ -19,5 +21,7 @@ router.get("/pricing", pricingPage);
 router.get("/services", servicesPage);
 router.get("/testimonial", testimonialPage);
 router.get("/blog", blogPage);
+router.get("/contact", contactPage);
+router.post("/email", email);
 
 module.exports = router;
