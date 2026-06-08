@@ -4,30 +4,47 @@
             <div class="flex py-lr-30 align-center justify-between">
                 <div class="header-img">
                     <a href="/">
-                        <img src="images/<%= logo %>" alt="lumaflux-logo" width="147" height="40">
+                        <img src="/images/<%= logo %>" alt="lumaflux-logo" width="147" height="40">
                     </a>
                 </div>
 
                 <nav class="navbar">
                     <ul class="flex gap-30">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/features">Features</a></li>
-                        <li><a href="/faq">Faq</a></li>
-                        <li><a href="/portfolio">Portfolio</a></li>
-                        <li><a href="/pricing">Pricing</a></li>
-                        <li><a href="/services">Services</a></li>
-                        <li class="position-relative">
-                            <a href="/testimonial">Testimonial</a>
-                        </li>
-                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/" class="<%= title.includes('Home') ? 'active' : '' %>">Home</a></li>
+                        <li><a href="/features" class="<%= title.includes('Features') ? 'active' : '' %>">Features</a></li>
+                        <li><a href="/faq" class="<%= title.includes('FAQ') ? 'active' : '' %>">FAQ</a></li>
+                        <li><a href="/portfolio" class="<%= title.includes('Portfolio') ? 'active' : '' %>">Portfolio</a></li>
+                        <li><a href="/pricing" class="<%= title.includes('Pricing') ? 'active' : '' %>">Pricing</a></li>
+                        <li><a href="/services" class="<%= title.includes('Services') ? 'active' : '' %>">Services</a></li>
+                        <li><a href="/testimonial" class="<%= title.includes('Testimonials') ? 'active' : '' %>">Testimonials</a></li>
+                        <li><a href="/blog" class="<%= title.includes('Blog') ? 'active' : '' %>">Blog</a></li>
                     </ul>
                 </nav>
 
                 <div class="header-btn">
-                    <button class="btn"><i class="ri-rocket-line"></i>Get Started</button>
-                    <i class="ri-menu-line"></i>
+                    <a href="/contact" class="btn" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                        <i class="ri-rocket-line"></i>Get Started
+                    </a>
+                    <i class="ri-menu-line" id="menu-toggle" style="cursor: pointer;"></i>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navbar = document.querySelector('.navbar');
+            if (menuToggle && navbar) {
+                menuToggle.addEventListener('click', () => {
+                    navbar.classList.toggle('active');
+                    if (navbar.classList.contains('active')) {
+                        menuToggle.className = 'ri-close-line';
+                    } else {
+                        menuToggle.className = 'ri-menu-line';
+                    }
+                });
+            }
+        });
+    </script>
 </header>

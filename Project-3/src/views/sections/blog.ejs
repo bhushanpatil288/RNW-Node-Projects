@@ -1,138 +1,79 @@
 <section>
     <div class="container">
+        <div class="blog flex py100">
 
-        <div class="since-bottom flex py100">
-
-            <!-- Left Side -->
-            <div class="col-6 col-lg-12">
-
-                <div class="since">
-
-                    <span class="since-sub-title">
-                        Since Form
+            <div class="col-12">
+                <div class="blog-topic text-center" style="margin-bottom: 50px;">
+                    <span class="blog-sub-title">
+                        Latest Blog
                     </span>
-
-                    <h2 class="since-title">
-                        Keep pushing forward. We've got your back.
+                    <h2 class="blog-title" style="font-size: 34px; margin-top: 16px; font-weight: 500;">
+                        Insights & Stories from LumaFlux
                     </h2>
-
-                    <h3 class="since-dsc">
-                        Thing go wrong have questions.
-                        We've understand. So we have people.
-                    </h3>
-
-                    <div class="since-text flex align-center justify-between">
-
-                        <div class="since-text-left flex align-center">
-                            <h2 class="since-num">
-                                10K
-                            </h2>
-
-                            <h2 class="since-users">
-                                Happy Users <br>
-                                Around World
-                            </h2>
-                        </div>
-
-                        <div class="since-text-right flex align-center">
-                            <h2 class="since-num">
-                                120K
-                            </h2>
-
-                            <h2 class="since-users">
-                                Projects <br>
-                                Already Done
-                            </h2>
-                        </div>
-
-                    </div>
-
                 </div>
-
             </div>
 
-            <!-- Right Side -->
-            <div class="col-6 col-lg-12">
-
-                <!-- Review 1 -->
-                <div class="review">
-
-                    <div class="review-top flex">
-
-                        <div class="user-img-name flex align-center">
-                            <img
-                                src="/images/<%= blog1 %>"
-                                alt="Anant Shah"
-                                class="avatar"
-                            >
-
-                            <h2>Anant Shah</h2>
-                        </div>
-
+            <div class="flex gap-30" style="width: 100%; justify-content: space-between; flex-wrap: wrap;">
+                
+                <!-- Blog 1 -->
+                <div class="col-4 col-xl-6 col-md-12 blog-contant">
+                    <div class="blog-img" style="width: 100%; height: 240px; overflow: hidden;">
+                        <img src="/images/<%= blog1 %>" alt="Blog Post 1" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
-
-                    <div class="review-bottom">
-
-                        <div class="review-sub-title">
-                            <p>
-                                I have been hiring people in this space for years
-                                and I have never seen this level of professionalism.
-                            </p>
-                        </div>
-
-                        <div class="review-star flex">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-half-fill"></i>
-                        </div>
-
+                    <div class="blog-bottom" style="padding: 24px;">
+                        <h3 class="blog-bottom-title" style="font-size: 20px; font-weight: 700; color: var(--text-color);">
+                            Designing visual systems for digital products
+                        </h3>
+                        <p class="blog-bottom-sub-title" style="margin: 12px 0 20px; font-size: 15px; line-height: 1.5; color: var(--text-color-2);">
+                            Discover how to build scaleable UI components and design tokens that work for any team.
+                        </p>
+                        <h4 class="blog-bottom-link" style="color: var(--primary); font-weight: 600; font-size: 16px; display: inline-flex; align-items: center;">
+                            Read More
+                            <i class="ri-arrow-right-line" style="margin-left: 6px;"></i>
+                        </h4>
                     </div>
-
                 </div>
 
-                <!-- Review 2 -->
-                <div class="review">
-
-                    <div class="review-top flex">
-
-                        <div class="user-img-name flex align-center">
-                            <img
-                                src="/images/<%= blog2 %>"
-                                alt="Rakhesh Sir"
-                                class="avatar"
-                            >
-
-                            <h2>Keyur Sir</h2>
-                        </div>
-
+                <!-- Blog 2 -->
+                <div class="col-4 col-xl-6 col-md-12 blog-contant">
+                    <div class="blog-img" style="width: 100%; height: 240px; overflow: hidden;">
+                        <img src="/images/<%= blog2 %>" alt="Blog Post 2" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
-
-                    <div class="review-bottom">
-
-                        <div class="review-sub-title">
-                            <p>
-                                I have been hiring people in this space for years
-                                and I have never seen this level of professionalism.
-                            </p>
-                        </div>
-
-                        <div class="review-star flex">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-half-fill"></i>
-                        </div>
-
+                    <div class="blog-bottom" style="padding: 24px;">
+                        <h3 class="blog-bottom-title" style="font-size: 20px; font-weight: 700; color: var(--text-color);">
+                            Clarity in modern web interfaces
+                        </h3>
+                        <p class="blog-bottom-sub-title" style="margin: 12px 0 20px; font-size: 15px; line-height: 1.5; color: var(--text-color-2);">
+                            Why minimalist layouts and subtle animations drive better engagement and higher conversions.
+                        </p>
+                        <h4 class="blog-bottom-link" style="color: var(--primary); font-weight: 600; font-size: 16px; display: inline-flex; align-items: center;">
+                            Read More
+                            <i class="ri-arrow-right-line" style="margin-left: 6px;"></i>
+                        </h4>
                     </div>
+                </div>
 
+                <!-- Blog 3 -->
+                <div class="col-4 col-xl-6 col-md-12 blog-contant">
+                    <div class="blog-img" style="width: 100%; height: 240px; overflow: hidden;">
+                        <img src="/images/<%= blog3 %>" alt="Blog Post 3" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="blog-bottom" style="padding: 24px;">
+                        <h3 class="blog-bottom-title" style="font-size: 20px; font-weight: 700; color: var(--text-color);">
+                            Fast iteration and product strategy
+                        </h3>
+                        <p class="blog-bottom-sub-title" style="margin: 12px 0 20px; font-size: 15px; line-height: 1.5; color: var(--text-color-2);">
+                            How LumaFlux helps teams transition from mockups to launch-ready code in record time.
+                        </p>
+                        <h4 class="blog-bottom-link" style="color: var(--primary); font-weight: 600; font-size: 16px; display: inline-flex; align-items: center;">
+                            Read More
+                            <i class="ri-arrow-right-line" style="margin-left: 6px;"></i>
+                        </h4>
+                    </div>
                 </div>
 
             </div>
 
         </div>
-
     </div>
 </section>

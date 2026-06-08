@@ -380,6 +380,28 @@
         display: none;
     }
 
+    .navbar.active {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        border-bottom: 1px solid var(--border-color-2);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        padding: 20px 40px;
+        z-index: 1000;
+    }
+
+    .navbar.active ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navbar.active ul li {
+        width: 100%;
+    }
+
     .btn {
         display: none;
     }
