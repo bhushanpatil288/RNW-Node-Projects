@@ -1,7 +1,9 @@
-exports.errorHandler = (err, req, res, next) => {
-    console.log(`Error Test route hit : ${err.message}`);
+const logger = require("../utils/logger");
 
+const errorHandler = (err, req, res, next) => {
     const statusCode = err.statusCode || 500;
+
+    logger.error(err.message)
 
     const data = {
         success: false,
@@ -11,3 +13,5 @@ exports.errorHandler = (err, req, res, next) => {
 
     res.render("others/errorPage", data);
 };
+
+module.exports = errorHandler;

@@ -1,11 +1,13 @@
 const express = require("express");
 const path = require("path");
-const { asyncHandler } = require("./utils/asyncHandler");
-const { errorHandler } = require("./utils/errorHandler");
+const asyncHandler = require("./utils/asyncHandler");
+const errorHandler = require("./utils/errorHandler");
 const ApiError = require("./utils/ApiError");
+const requestLogger = require("./middlewares/requestLogger");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(requestLogger);
 
 // ejs setup
 app.set("view engine", "ejs");
