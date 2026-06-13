@@ -17,6 +17,9 @@ app.set("views", path.join(__dirname, "views"));
 // public directory setup
 app.use(express.static(path.join(__dirname, "public")));
 
+// uploads folder setup
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 
 // routes
