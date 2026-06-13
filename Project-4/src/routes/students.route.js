@@ -7,7 +7,7 @@ const {
     homePage,
     addStudent,
     studentsList
-} = require("../cotrollers/students.controller");
+} = require("../controllers/students.controller");
 
 router.get("/", homePage);
 router.post("/add-student", upload.single("profilePicture"), addStudent)

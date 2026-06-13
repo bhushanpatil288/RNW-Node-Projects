@@ -25,7 +25,7 @@ shades of grays
 | Text colors | **shades of grays** (ex. gray-300 on dark bg and gray-600 on light bg) |
 
 
-## Post Routes Guid
+## Post Routes Guides
 
 ```
 POST /add-student

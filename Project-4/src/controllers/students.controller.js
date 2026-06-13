@@ -1,3 +1,4 @@
+const { Logger } = require("winston");
 const { addStudentService } = require("../services/students.services");
 const asyncHandler = require("../utils/asyncHandler");
 
@@ -16,7 +17,8 @@ const studentsList = asyncHandler(async (req, res) => {
 })
 
 const addStudent = asyncHandler(async (req, res) => {
-    const student = addStudentService(req.body);
+    const student = await addStudentService(req);
+    Logger.info("user created");
     res.render("studentsListPage");
 })
 

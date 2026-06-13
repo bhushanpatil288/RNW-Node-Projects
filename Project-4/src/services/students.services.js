@@ -1,10 +1,10 @@
 const Students = require("../models/students.model");
 
-const addStudentService = async () => {
+const addStudentService = async (req) => {
     return await Students.create({
         name: req.body.name,
         email: req.body.email,
-        phoen: req.body.phone,
+        phone: req.body.phone,
         profilePicture: req.file ? req.file.path : null
     });
 }
