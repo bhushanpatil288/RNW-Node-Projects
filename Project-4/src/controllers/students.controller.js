@@ -22,8 +22,16 @@ const addStudent = asyncHandler(async (req, res) => {
     res.render("studentsListPage");
 })
 
+const addStudentPage = asyncHandler(async (req, res) => {
+    data = {
+        title: "Add New Student"
+    }
+    res.render("addStudentPage", data)
+})
+
 module.exports = {
     homePage,
     addStudent,
-    studentsList
+    studentsList,
+    addStudentPage
 }
