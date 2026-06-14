@@ -1,5 +1,8 @@
 const logger = require("../utils/logger");
-const { addStudentService } = require("../services/students.services");
+const {
+    addStudentService,
+    getAllStudentsService
+} = require("../services/students.services");
 const asyncHandler = require("../utils/asyncHandler");
 
 const homePage = asyncHandler(async (req, res) => {
@@ -10,8 +13,10 @@ const homePage = asyncHandler(async (req, res) => {
 });
 
 const studentsList = asyncHandler(async (req, res) => {
+    const allStudents = await getAllStudentsService();
     const data = {
-        title: "Students List"
+        title: "Students List",
+        students: allStudents
     }
     res.render("studentsListPage", data);
 })
@@ -19,8 +24,11 @@ const studentsList = asyncHandler(async (req, res) => {
 const addStudent = asyncHandler(async (req, res) => {
     const student = await addStudentService(req);
     logger.info("user created");
+
+    const allStudents = await getAllStudentsService();
     data = {
-        title: "Students List"
+        title: "Students List",
+        students: allStudents
     }
     res.render("studentsListPage", data);
 })

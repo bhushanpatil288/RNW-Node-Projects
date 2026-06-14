@@ -11,8 +11,10 @@ will update it to colors in future for now focusing on usage not visuals
 | Name | Endpoint |
 | --- | --- |
 | 🏠 Home page | GET **/** |
+| 👨🏻‍🎓 Add Student Page | POST **/add** |
 | 👨🏻‍🎓 Add Student | POST **/add-student** |
-| 👨🏻‍⚕️ Health Check | GET **/health** | 
+| 📔 Students List | GET **/students** |
+| 👨🏻‍⚕️ Health Check | GET **/health** |
 | ☠️ Error Test | GET **/raise-error** |
 
 
@@ -37,3 +39,13 @@ POST /add-student
     profilePicture (optional)
 }
 ```
+
+
+## Setup Guide
+
+
+* Create uploads folder in ```src/```
+* setup .env (mv env.example .env)
+* in global space run ```npm i``` (where index.js file is)
+
+

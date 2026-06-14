@@ -5,10 +5,15 @@ const addStudentService = async (req) => {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
-        profilePicture: req.file ? req.file.path : null
+        profilePicture: req.file ? req.file.filename : null
     });
 }
 
+const getAllStudentsService = async (req) => {
+    return await Students.find();
+}
+
 module.exports = { 
-    addStudentService
+    addStudentService,
+    getAllStudentsService
 };
