@@ -1,21 +1,26 @@
-# Simple CRUD app made with ejs and express backend
+# Simple CRUD App with EJS and Express Backend
 
-## current focus
-creating project pages with grayscale color pallet
-will update it to colors in future for now focusing on usage not visuals
+A student management CRUD application built with Node.js, Express, EJS templating, and MongoDB.
+
+## Current Focus
+
+Building core CRUD functionality with a grayscale color palette. Visual refinements will be added in future iterations.
 
 ## End-points
 
 **base URI : http://localhost:8080/**
 
-| Name | Endpoint |
-| --- | --- |
-| 🏠 Home page | GET **/** |
-| 👨🏻‍🎓 Add Student Page | POST **/add** |
-| 👨🏻‍🎓 Add Student | POST **/add-student** |
-| 📔 Students List | GET **/students** |
-| 👨🏻‍⚕️ Health Check | GET **/health** |
-| ☠️ Error Test | GET **/raise-error** |
+| Name | Endpoint | Method |
+| --- | --- | --- |
+| 🏠 Home page | **/** | GET |
+| 👨🏻‍🎓 Add Student Page | **/add** | GET |
+| 👨🏻‍🎓 Add Student | **/add-student** | POST |
+| 📔 Students List | **/students** | GET |
+| ✏️ Edit Student Page | **/edit/:id** | GET |
+| 🔄 Update Student | **/update/:id** | POST |
+| 🗑️ Delete Student | **/delete/:id** | DELETE |
+| 👨🏻‍⚕️ Health Check | **/health** | GET |
+| ☠️ Error Test | **/raise-error** | GET |
 
 
 ## Style guidelines
@@ -27,7 +32,7 @@ shades of grays
 | Text colors | **shades of grays** (ex. gray-300 on dark bg and gray-600 on light bg) |
 
 
-## Post Routes Guides
+## API Request Guides
 
 ```
 POST /add-student
@@ -36,7 +41,18 @@ POST /add-student
     name,
     email,
     phone,
-    profilePicture (optional)
+    profilePicture (optional, file upload)
+}
+```
+
+```
+POST /update/:id
+
+{
+    name,
+    email,
+    phone,
+    profilePicture (optional, file upload)
 }
 ```
 
