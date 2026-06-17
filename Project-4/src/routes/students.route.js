@@ -8,7 +8,8 @@ const {
     addStudent,
     studentsList,
     addStudentPage,
-    deleteStudent
+    deleteStudent,
+    editStudentPage
 } = require("../controllers/students.controller");
 
 router.get("/", homePage);
@@ -17,5 +18,6 @@ router.get("/add", addStudentPage);
 router.post("/add-student", upload.single("profilePicture"), addStudent)
 router.get("/students", studentsList)
 router.delete("/delete/:id", deleteStudent);
+router.get("/edit/:id", editStudentPage);
 
 module.exports = router;

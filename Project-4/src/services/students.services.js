@@ -33,9 +33,15 @@ const deleteStudentService = async (id) => {
     await Students.findByIdAndDelete(id);
 }
 
+const editPageService = async (id) => {
+    const studentData = await Students.findById(id);
+    return studentData;
+}
+
 module.exports = {
     addStudentService,
     getAllStudentsService,
     goToStudentsListService,
-    deleteStudentService
+    deleteStudentService,
+    editPageService
 };
