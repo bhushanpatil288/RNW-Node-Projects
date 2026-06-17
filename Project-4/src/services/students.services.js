@@ -35,7 +35,37 @@ const deleteStudentService = async (id) => {
 
 const editPageService = async (id) => {
     const studentData = await Students.findById(id);
-    return studentData;
+    const data = {
+        id: studentData._id,
+        title: "Edit student data",
+        name: studentData.name,
+        email: studentData.email,
+        phone: studentData.phone,
+        profilePicture: studentData.profilePicture
+    }
+    return data;
+}
+
+const updateStudentDataService = async (req, id) => {
+    let updatedData = {
+        ...req.body
+    }
+    if (req.file) {
+        const student = await Students.findById(id);
+        const oldProfilePicture = student.profilePicture;
+        console.log(oldProfilePicture);
+
+        await fs.unlink(
+            path.join(__dirname, "../uploads", oldProfilePicture)
+        )
+        updatedData = {
+            ...updatedData,
+            profilePicture: req.file.filename 
+        }
+        await Students.findByIdAndUpdate(id, updatedData);
+    } else {
+        await Students.findByIdAndUpdate(id, updatedData);
+    }
 }
 
 module.exports = {
@@ -43,5 +73,6 @@ module.exports = {
     getAllStudentsService,
     goToStudentsListService,
     deleteStudentService,
-    editPageService
+    editPageService,
+    updateStudentDataService
 };

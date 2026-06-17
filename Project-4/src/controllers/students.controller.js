@@ -3,7 +3,8 @@ const {
     addStudentService,
     goToStudentsListService,
     deleteStudentService,
-    editPageService
+    editPageService,
+    updateStudentDataService
 } = require("../services/students.services");
 const asyncHandler = require("../utils/asyncHandler");
 
@@ -40,15 +41,14 @@ const deleteStudent = asyncHandler(async (req, res) => {
 
 const editStudentPage = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const studentData = await editPageService(id);
-    const data = {
-        title: "Edit student data",
-        name: studentData.name,
-        email: studentData.email,
-        phone: studentData.phone,
-        profilePicture: studentData.profilePicture
-    }
+    const data = await editPageService(id);
+    
     res.render("editStudentPage", data);
+})
+
+const updateStudentData = asyncHandler(async (req, res) => {
+    await updateStudentDataService(req, req.params.id);
+    await goToStudentsListService(res);
 })
 
 module.exports = {
@@ -57,5 +57,6 @@ module.exports = {
     studentsList,
     addStudentPage,
     deleteStudent,
-    editStudentPage
+    editStudentPage,
+    updateStudentData
 }
