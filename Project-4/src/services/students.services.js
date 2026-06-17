@@ -1,4 +1,6 @@
 const Students = require("../models/students.model");
+const fs = require("fs/promises");
+const path = require("path");
 
 const addStudentService = async (req) => {
     return await Students.create({
@@ -23,6 +25,11 @@ const goToStudentsListService = async (res) => {
 }
 
 const deleteStudentService = async (id) => {
+    const studentData = await Students.findById(id);
+    await fs.unlink(
+        path.join(__dirname, "../uploads", studentData.profilePicture)
+    )
+
     await Students.findByIdAndDelete(id);
 }
 
