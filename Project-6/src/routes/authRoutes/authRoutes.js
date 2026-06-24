@@ -3,7 +3,8 @@ const router = express.Router();
 
 const {
     loginPageController,
-    signupPageController
+    signupPageController,
+    signupController
 } = require("../../controllers/authControllers");
 
 router.get("/", (req, res)=>{
@@ -12,5 +13,6 @@ router.get("/", (req, res)=>{
 
 router.get("/signin", loginPageController);
 router.get("/signup", signupPageController);
+router.post("/signup", signupController);
 
 module.exports = router;
