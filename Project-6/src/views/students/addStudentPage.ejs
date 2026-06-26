@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('partials/head') %>
+</head>
+
+<body>
+  <%- include('partials/header') %>
+
+  <main class="flex jusitfy-center items-center h-100 bg-gray-300">
+    <section class="w-full">
+      <div>
+        <form action="/students/add-student" method="post" enctype="multipart/form-data" class="max-w-lg mx-auto bg-gradient-to-b from-gray-200 to-gray-300 p-8 rounded-2xl shadow-xl space-y-5">
+          <h2 class="text-2xl font-bold text-gray-800">Add Student</h2>
+
+          <!-- Name -->
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-700">
+              Full Name
+            </label>
+            <input type="text" name="name" placeholder="ex. John Doe" class="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none transition focus:ring-2 focus:ring-gray-700 focus:border-gray-700" />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-700">
+              Email Address
+            </label>
+            <input type="email" name="email" placeholder="ex. example@email.com" class="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none transition focus:ring-2 focus:ring-gray-700 focus:border-gray-700" />
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-700">
+              Phone Number
+            </label>
+            <input type="number" name="phone" placeholder="ex. 9876543210" class="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none transition focus:ring-2 focus:ring-gray-700 focus:border-gray-700" />
+          </div>
+
+          <!-- Profile Picture -->
+          <div>
+            <label for="profilePicture" class="block mb-2 text-sm font-medium text-gray-700">
+              Student Image
+            </label>
+
+            <input type="file" id="profilePicture" name="profilePicture" class="w-full text-sm text-gray-600
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-lg file:border-0
+      file:bg-gray-800 file:text-white
+      file:cursor-pointer
+      hover:file:bg-gray-700" />
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="w-full bg-gradient-to-r from-gray-700 to-gray-900 text-white py-3 rounded-lg font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200 cursor-pointer">
+            Add Student
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+
+</html>
