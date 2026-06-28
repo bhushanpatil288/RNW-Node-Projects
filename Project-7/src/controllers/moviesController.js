@@ -41,8 +41,31 @@ const createMovie = asyncHandler(async (req, res) => {
     res.redirect("/");
 });
 
+const deleteMovie = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const movie = await Movies.findById(id);
+    if (!movie) {
+        throw new ApiError(404, "Movie not found");
+    }
+
+    const { poster } = movie;
+    if (poster) {
+        const fs = require("fs");
+        const path = require("path");
+        const posterPath = path.join(__dirname, "..", "public", poster);
+        fs.unlink(posterPath, (err) => {
+            if (err) {
+                console.error("Error deleting poster image:", err);
+            }
+        });
+    }
+    await Movies.findByIdAndDelete(id);
+    res.redirect("/");
+});
+
 module.exports = {
     indexPage,
     showAddPage,
-    createMovie
+    createMovie,
+    deleteMovie
 };
