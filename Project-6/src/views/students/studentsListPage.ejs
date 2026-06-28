@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("partials/head") %>
+</head>
+
+<body>
+  <%- include("partials/header") %>
+
+  <main class="bg-gray-300 h-100 flex justify-center items-center">
+    <div class="p-6">
+      <h1 class="text-2xl font-bold mb-6 text-gray-800">
+        Students List
+      </h1>
+
+      <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table class="min-w-full text-sm text-left text-gray-600">
+
+          <!-- Head -->
+          <thead class="bg-gray-100 text-gray-700 uppercase text-xs tracking-wider">
+            <tr>
+              <th class="px-6 py-3">Index</th>
+              <th class="px-6 py-3">Name</th>
+              <th class="px-6 py-3">Email</th>
+              <th class="px-6 py-3">Phone</th>
+              <th class="px-6 py-3">Photo</th>
+              <th class="px-6 py-3">Action</th>
+            </tr>
+          </thead>
+
+          <!-- Body -->
+          <tbody class="divide-y divide-gray-200">
+
+            <% students.forEach((student, idx) => { %>
+            <tr class="hover:bg-gray-50 transition">
+
+              <td class="px-6 py-4 font-medium text-gray-900">
+                <%= idx + 1 %>
+              </td>
+
+              <td class="px-6 py-4">
+                <%= student.name %>
+              </td>
+
+              <td class="px-6 py-4">
+                <%= student.email %>
+              </td>
+
+              <td class="px-6 py-4">
+                <%= student.phone %>
+              </td>
+
+              <td class="px-6 py-4">
+                <img src="/uploads/<%= student.profilePicture %>" class="w-12 h-12 rounded-full object-cover border" alt="profile">
+              </td>
+
+              <td class="px-6 py-4">
+                <div>
+                  <button data-id="<%= student._id %>" class="bg-gradient-to-tr from-red-500 to-gray-700 text-gray-200 px-4 py-2 rounded-2xl shadow-md active:scale-98 active:translate-y-0 cursor-pointer hover:scale-102 hover:-translate-y-1 hover:shadow-xl transition-all duration-200 deleteBtn">
+                    <i class="ri-delete-bin-line"></i>
+                  </button>
+                  <a href="/students/edit/<%= student._id %>" class="bg-gradient-to-tr from-gray-500 to-gray-700 text-gray-200 px-4 py-2 rounded-2xl shadow-md active:scale-98 active:translate-y-0 cursor-pointer hover:scale-102 hover:-translate-y-1 hover:shadow-xl transition-all duration-200 editBtn">
+                    <i class="ri-edit-line"></i>
+                  </a>
+                </div>
+              </td>
+
+            </tr>
+            <% }) %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <%- include("partials/footer") %>
+  <script src="/js/studentsListPage.js"></script>
+</body>
+
+</html>

@@ -4,8 +4,9 @@ const router = express.Router();
 const {
     loginPageController,
     signupPageController,
-    signupController
-} = require("../../controllers/authControllers");
+    signupController,
+    loginController
+} = require("../../controllers/authController");
 
 router.get("/", (req, res)=>{
     res.send("ah ha! gotcha, not corret way to visit, click home buttons to login or signup or if you insist go to /login or /signup route");
@@ -14,5 +15,6 @@ router.get("/", (req, res)=>{
 router.get("/signin", loginPageController);
 router.get("/signup", signupPageController);
 router.post("/signup", signupController);
+router.post("/signin", loginController);
 
 module.exports = router;
