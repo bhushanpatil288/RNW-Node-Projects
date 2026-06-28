@@ -1,11 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<main>
+    <div class="container page-padding">
+        <div class="form-container">
+            <div class="form-header">
+                <h2 class="form-title">Edit Movie</h2>
+                <p class="form-subtitle">Update the movie details</p>
+            </div>
+
+            <form method="POST" action="/edit/<%= typeof id !== 'undefined' ? id : '#' %>" class="form-wrapper">
+                <div class="form-group">
+                    <label for="title" class="form-label">Movie Title *</label>
+                    <input 
+                        type="text" 
+                        id="title" 
+                        name="title" 
+                        required
+                        placeholder="Enter movie title"
+                        value="<%= typeof title !== 'undefined' ? title : '' %>"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="director" class="form-label">Director *</label>
+                    <input 
+                        type="text" 
+                        id="director" 
+                        name="director" 
+                        required
+                        placeholder="Director name"
+                        value="<%= typeof director !== 'undefined' ? director : '' %>"
+                        class="form-input"
+                    />
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="year" class="form-label">Release Year *</label>
+                        <input 
+                            type="number" 
+                            id="year" 
+                            name="year" 
+                            required
+                            min="1900"
+                            max="2100"
+                            placeholder="2024"
+                            value="<%= typeof year !== 'undefined' ? year : '' %>"
+                            class="form-input"
+                        />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="genre" class="form-label">Genre *</label>
+                        <select 
+                            id="genre" 
+                            name="genre" 
+                            required
+                            class="form-select"
+                        >
+                            <option value="">Select Genre</option>
+                            <option value="Action" <% if (typeof genre !== 'undefined' && genre === 'Action') { %>selected<% } %>>Action</option>
+                            <option value="Comedy" <% if (typeof genre !== 'undefined' && genre === 'Comedy') { %>selected<% } %>>Comedy</option>
+                            <option value="Drama" <% if (typeof genre !== 'undefined' && genre === 'Drama') { %>selected<% } %>>Drama</option>
+                            <option value="Horror" <% if (typeof genre !== 'undefined' && genre === 'Horror') { %>selected<% } %>>Horror</option>
+                            <option value="Romance" <% if (typeof genre !== 'undefined' && genre === 'Romance') { %>selected<% } %>>Romance</option>
+                            <option value="Sci-Fi" <% if (typeof genre !== 'undefined' && genre === 'Sci-Fi') { %>selected<% } %>>Sci-Fi</option>
+                            <option value="Thriller" <% if (typeof genre !== 'undefined' && genre === 'Thriller') { %>selected<% } %>>Thriller</option>
+                            <option value="Crime" <% if (typeof genre !== 'undefined' && genre === 'Crime') { %>selected<% } %>>Crime</option>
+                            <option value="Animation" <% if (typeof genre !== 'undefined' && genre === 'Animation') { %>selected<% } %>>Animation</option>
+                            <option value="Adventure" <% if (typeof genre !== 'undefined' && genre === 'Adventure') { %>selected<% } %>>Adventure</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rating" class="form-label">Rating (1-10)</label>
+                    <input 
+                        type="number" 
+                        id="rating" 
+                        name="rating" 
+                        min="1"
+                        max="10"
+                        step="0.1"
+                        placeholder="8.5"
+                        value="<%= typeof rating !== 'undefined' ? rating : '' %>"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea 
+                        id="description" 
+                        name="description" 
+                        placeholder="Enter movie description..."
+                        rows="4"
+                        class="form-textarea"
+                    ><%= typeof description !== 'undefined' ? description : '' %></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">Update Movie</button>
+                    <a href="/" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

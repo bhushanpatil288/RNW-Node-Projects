@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<main>
+    <div class="container page-padding">
+        <div class="page-header">
+            <h2 class="page-title">Your Collection</h2>
+            <p class="page-subtitle">Browse and manage your movie library</p>
+        </div>
+
+        <% if (typeof movies !== 'undefined' && movies.length > 0) { %>
+            <div class="grid-movies">
+                <% movies.forEach(movie => { %>
+                    <%- include('partials/movieCard', { movie }) %>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="empty-state">
+                <p class="empty-state-text">No movies in your collection yet</p>
+                <a href="/add" class="btn btn-primary">Add First Movie</a>
+            </div>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

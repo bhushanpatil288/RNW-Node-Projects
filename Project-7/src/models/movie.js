@@ -7,6 +7,11 @@ const movieSchema = mongoose.Schema({
         trim: true,
         unique: true
     },
+    director: {
+        type: String,
+        require: true,
+        trim: true
+    },
     genre: {
         type: String,
         trim: true
@@ -14,6 +19,13 @@ const movieSchema = mongoose.Schema({
     releaseYear: {
         type: Number,
         require: true
+    },
+    description: {
+        type: String,
+        trim: true
+    },
+    rating: {
+        type: Number
     },
     poster: {
         type: String,

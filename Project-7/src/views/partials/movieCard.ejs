@@ -1,0 +1,35 @@
+<div class="movie-card">
+    <div class="movie-card-header">
+        <% if (typeof movie.poster !== 'undefined' && movie.poster) { %>
+            <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="width: 100%; height: 100%; object-fit: cover;">
+        <% } else { %>
+            ▶
+        <% } %>
+    </div>
+    <div class="movie-card-body">
+        <h3 class="movie-card-title"><%= movie.title %></h3>
+        <div class="movie-card-info">
+            <p class="movie-card-info-item">
+                <span class="movie-card-info-label">Director</span><br/><%= movie.director || '—' %>
+            </p>
+            <p class="movie-card-info-item">
+                <span class="movie-card-info-label">Year</span><br/><%= movie.releaseYear || '—' %>
+            </p>
+            <p class="movie-card-info-item">
+                <span class="movie-card-info-label">Genre</span><br/><%= movie.genre || '—' %>
+            </p>
+            <% if (typeof movie.rating !== 'undefined' && movie.rating) { %>
+                <p class="movie-card-info-item">
+                    <span class="movie-card-info-label">Rating</span><br/><%= movie.rating %>/10
+                </p>
+            <% } %>
+        </div>
+        <p class="movie-card-description">
+            <%= typeof movie.description !== 'undefined' ? movie.description.substring(0, 90) + '...' : 'No description available' %>
+        </p>
+        <div class="movie-card-actions">
+            <a href="/edit/<%= movie._id || '#' %>" class="btn btn-primary">Edit</a>
+            <a href="/delete/<%= movie._id || '#' %>" class="btn btn-secondary">Delete</a>
+        </div>
+    </div>
+</div>

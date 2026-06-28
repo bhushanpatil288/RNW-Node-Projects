@@ -1,14 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Error Test Page</h1>
-    <h2><%= message %></h2>
-    <p>Success: <%= success %></p>
-    <pre><%= stack || "No stack trace available." %></pre>
-</body>
-</html>
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<main>
+    <div class="container page-padding">
+        <div class="empty-state" style="margin: 0 auto; max-width: 600px;">
+            <p style="font-size: 2rem; margin-bottom: 1rem;">⚠</p>
+            <p class="page-title" style="margin-bottom: 1rem; text-align: center;">An Error Occurred</p>
+            <h3 style="color: var(--text-secondary); margin-bottom: 1.5rem; text-align: center; font-size: 1.1rem;"><%= message %></h3>
+            <div style="background-color: var(--bg-primary); padding: 1.5rem; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <p style="color: var(--text-tertiary); font-size: 0.85rem; font-family: 'Monaco', 'Courier New', monospace; word-break: break-all;">
+                    <% if (typeof stack !== 'undefined' && stack) { %>
+                        <%= stack %>
+                    <% } else { %>
+                        No additional error information available.
+                    <% } %>
+                </p>
+            </div>
+            <a href="/" class="btn btn-primary">Return to Home</a>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

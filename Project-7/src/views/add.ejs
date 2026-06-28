@@ -1,11 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<main>
+    <div class="container page-padding">
+        <div class="form-container">
+            <div class="form-header">
+                <h2 class="form-title">Add New Movie</h2>
+                <p class="form-subtitle">Complete the form below to add a movie to your collection</p>
+            </div>
+
+            <form method="POST" action="/add" class="form-wrapper" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title" class="form-label">Movie Title *</label>
+                    <input 
+                        type="text" 
+                        id="title" 
+                        name="title" 
+                        required
+                        placeholder="Enter movie title"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="director" class="form-label">Director *</label>
+                    <input 
+                        type="text" 
+                        id="director" 
+                        name="director" 
+                        required
+                        placeholder="Director name"
+                        class="form-input"
+                    />
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="year" class="form-label">Release Year *</label>
+                        <input 
+                            type="number" 
+                            id="year" 
+                            name="releaseYear" 
+                            required
+                            min="1900"
+                            max="2100"
+                            placeholder="2024"
+                            class="form-input"
+                        />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="genre" class="form-label">Genre *</label>
+                        <select 
+                            id="genre" 
+                            name="genre" 
+                            required
+                            class="form-select"
+                        >
+                            <option value="">Select Genre</option>
+                            <option value="Action">Action</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Drama">Drama</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Sci-Fi">Sci-Fi</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Crime">Crime</option>
+                            <option value="Animation">Animation</option>
+                            <option value="Adventure">Adventure</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rating" class="form-label">Rating (1-10)</label>
+                    <input 
+                        type="number" 
+                        id="rating" 
+                        name="rating" 
+                        min="1"
+                        max="10"
+                        step="0.1"
+                        placeholder="8.5"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea 
+                        id="description" 
+                        name="description" 
+                        placeholder="Enter movie description..."
+                        rows="4"
+                        class="form-textarea"
+                    ></textarea>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="poster" class="form-label">Poster *</label>
+                    <input 
+                        type="file" 
+                        id="poster" 
+                        name="poster"
+                        required
+                        accept="image/*"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">Add Movie</button>
+                    <a href="/" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
