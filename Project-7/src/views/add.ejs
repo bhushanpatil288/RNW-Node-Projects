@@ -11,6 +11,11 @@
             </div>
 
             <form method="POST" action="/add" class="form-wrapper" enctype="multipart/form-data">
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="error-banner" style="background-color: rgba(220, 38, 38, 0.2); border: 1px solid #dc2626; color: #fca5a5; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= error %>
+                    </div>
+                <% } %>
                 <div class="form-group">
                     <label for="title" class="form-label">Movie Title *</label>
                     <input 
