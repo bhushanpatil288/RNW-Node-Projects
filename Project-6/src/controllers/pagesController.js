@@ -1,33 +1,28 @@
+const asyncHandler = require("../utils/asyncHandler");
 const User = require("../models/userModel");
 
-const homePage = (req, res)=>{
-    const data = {
-        title: "Welcome"
-    }
-    res.render("index", data);
-};
+const homePage = asyncHandler((req, res) => {
+    return res.render("index", { title: "Welcome" });
+});
 
-const dashboardPage = async (req, res) => {
-    const { id } = req.cookies;
-
-    let data = {};
+const dashboardPage = asyncHandler(async (req, res) => {
+    const { id } = req.cookies || {};
 
     if (!id) {
-        data = {
-            username: "Demo name",
-            email: "Demo email",
-            password: "Demo Password"
-        };
-    } else {
-        const userData = await User.findById(id);
-        console.log(userData);
-        data = userData;
+        return res.render("dashboard", {
+            data: {
+                username: "Demo name",
+                email: "Demo email",
+                password: "Demo Password"
+            }
+        });
     }
 
-    res.render("dashboard", { data });
-};
+    const userData = await User.findById(id);
+    return res.render("dashboard", { data: userData || {} });
+});
 
 module.exports = {
     homePage,
     dashboardPage
-}
+};
