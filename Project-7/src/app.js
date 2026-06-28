@@ -1,4 +1,3 @@
-// imports start
 const path = require("path");
 const express = require("express");
 const cookieParser = require("cookie-parser");
@@ -7,7 +6,6 @@ const requestLogger = require("./middleware/requestLogger")
 const ApiError = require("./utils/ApiError");
 const asyncHandler = require("./utils/asyncHandler");
 const errorHandler = require("./utils/errorHandler");
-// imports end
 
 
 const app = express();
@@ -29,6 +27,8 @@ app.get("/health-check", requestLogger, (_, res) => {
 app.get("/error-check",asyncHandler((_, res) => {
     throw new ApiError(500, "Internal Server Error (test)");
 }));
+
+app.use("/", require("./routes/index"));
 
 // Error handling middleware (must be last)
 app.use(errorHandler);
