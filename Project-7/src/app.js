@@ -1,12 +1,17 @@
 const path = require("path");
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const flash = require("connect-flash");
+const passport = require("passport");
 const logger = require("./utils/logger");
-const requestLogger = require("./middleware/requestLogger")
+const requestLogger = require("./middleware/requestLogger");
 const ApiError = require("./utils/ApiError");
 const asyncHandler = require("./utils/asyncHandler");
 const errorHandler = require("./utils/errorHandler");
 
+// Passport Config
+require("./config/passport")(passport);
 
 const app = express();
 
@@ -14,6 +19,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
+
+// Session middleware
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || "fallbacksessionsecretcinemaapp",
+        resave: false,
+        saveUninitialized: false
+    })
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Flash middleware
+app.use(flash());
+
+// Global Vars for views
+app.use((req, res, next) => {
+    res.locals.user = req.user || null;
+    res.locals.errorMessages = req.flash("error");
+    res.locals.successMessages = req.flash("success");
+    next();
+});
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
