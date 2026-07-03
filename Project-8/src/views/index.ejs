@@ -1,0 +1,107 @@
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<main>
+    <div class="container page-padding">
+        <div class="page-header">
+            <h2 class="page-title">Blog Articles</h2>
+            <p class="page-subtitle">Browse and read the latest published blog posts</p>
+        </div>
+
+        <% if (typeof blogs !== 'undefined' && blogs.length > 0) { %>
+            <div class="grid-blogs">
+                <% blogs.forEach(blog => { %>
+                    <%- include('partials/blogCard', { blog }) %>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="empty-state">
+                <p class="empty-state-text">No blog posts published yet</p>
+                <a href="/add" class="btn btn-primary">Write First Blog</a>
+            </div>
+        <% } %>
+    </div>
+</main>
+
+<!-- Blog Reading Modal Overlay -->
+<dialog id="blogReaderModal" closedby="any" class="blog-modal">
+    <div class="blog-modal-container">
+        <div class="blog-modal-header-image" id="modalImageContainer">
+            <img id="modalImage" src="" alt="" style="width: 100%; height: 260px; object-fit: cover;">
+            <div id="modalImagePlaceholder" class="modal-placeholder" style="display: none; align-items: center; justify-content: center; height: 180px; font-size: 4rem; background: linear-gradient(135deg, #1e3a3a 0%, #2d5a4a 100%); color: var(--accent-green);">
+                📝
+            </div>
+        </div>
+        <div class="blog-modal-body" style="padding: 2rem;">
+            <div class="blog-modal-meta" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--text-secondary);">
+                <span>By <strong id="modalAuthor" style="color: var(--text-primary);"></strong> in <span id="modalCategory" style="background-color: var(--accent-green); color: white; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600;"></span></span>
+                <span id="modalReadTime" style="color: var(--text-tertiary);"></span>
+            </div>
+            <h2 id="modalTitle" style="color: var(--text-primary); font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700; line-height: 1.3;"></h2>
+            <div id="modalContent" style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7; white-space: pre-wrap; margin-bottom: 2rem; max-height: 300px; overflow-y: auto; padding-right: 0.5rem;"></div>
+            <div class="blog-modal-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 1.5rem; font-size: 0.85rem; color: var(--text-tertiary);">
+                <span>Published by: <span id="modalPublishedBy" style="color: var(--text-primary); font-weight: 500;"></span></span>
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('blogReaderModal').close()" style="padding: 0.6rem 1.2rem; text-transform: none;">Close</button>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<script>
+function openBlogModal(cardElement) {
+    const title = cardElement.getAttribute('data-title');
+    const author = cardElement.getAttribute('data-author');
+    const category = cardElement.getAttribute('data-category');
+    const readTime = cardElement.getAttribute('data-read-time');
+    const publishedBy = cardElement.getAttribute('data-published-by');
+    const image = cardElement.getAttribute('data-image');
+    
+    // Retrieve full content from the hidden container element safely
+    const content = cardElement.querySelector('.blog-card-hidden-content').textContent;
+
+    // Populate modal fields
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalAuthor').textContent = author;
+    document.getElementById('modalCategory').textContent = category;
+    document.getElementById('modalReadTime').textContent = readTime;
+    document.getElementById('modalPublishedBy').textContent = publishedBy;
+    document.getElementById('modalContent').textContent = content;
+
+    const imgEl = document.getElementById('modalImage');
+    const placeholderEl = document.getElementById('modalImagePlaceholder');
+
+    if (image) {
+        imgEl.src = image;
+        imgEl.alt = title;
+        imgEl.style.display = 'block';
+        placeholderEl.style.display = 'none';
+    } else {
+        imgEl.style.display = 'none';
+        placeholderEl.style.display = 'flex';
+    }
+
+    const modal = document.getElementById('blogReaderModal');
+    modal.showModal();
+}
+
+// Fallback for light-dismiss on unsupported browsers (Safari)
+const dialog = document.getElementById('blogReaderModal');
+if (dialog && !('closedBy' in HTMLDialogElement.prototype)) {
+    dialog.addEventListener('click', (event) => {
+        if (event.target !== dialog) return;
+        const rect = dialog.getBoundingClientRect();
+        const isDialogContent = (
+            rect.top <= event.clientY &&
+            event.clientY <= rect.top + rect.height &&
+            rect.left <= event.clientX &&
+            event.clientX <= rect.left + rect.width
+        );
+        if (!isDialogContent) {
+            dialog.close();
+        }
+    });
+}
+</script>
+
+<%- include('partials/footer') %>

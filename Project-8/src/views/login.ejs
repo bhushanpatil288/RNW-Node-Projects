@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<main>
+    <div class="container page-padding">
+        <div class="form-container">
+            <div class="form-header">
+                <h2 class="form-title">Welcome Back</h2>
+                <p class="form-subtitle">Sign in to manage your cinema collection</p>
+            </div>
+
+            <form method="POST" action="/login" class="form-wrapper">
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="error-banner" style="background-color: rgba(220, 38, 38, 0.2); border: 1px solid #dc2626; color: #fca5a5; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= error %>
+                    </div>
+                <% } else if (typeof errorMessages !== 'undefined' && errorMessages.length > 0) { %>
+                    <div class="error-banner" style="background-color: rgba(220, 38, 38, 0.2); border: 1px solid #dc2626; color: #fca5a5; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= errorMessages[0] %>
+                    </div>
+                <% } %>
+
+                <% if (typeof success !== 'undefined' && success) { %>
+                    <div class="success-banner" style="background-color: rgba(74, 124, 89, 0.2); border: 1px solid var(--accent-green); color: #a7f3d0; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= success %>
+                    </div>
+                <% } else if (typeof successMessages !== 'undefined' && successMessages.length > 0) { %>
+                    <div class="success-banner" style="background-color: rgba(74, 124, 89, 0.2); border: 1px solid var(--accent-green); color: #a7f3d0; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= successMessages[0] %>
+                    </div>
+                <% } %>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address *</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required
+                        placeholder="name@example.com"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+                        <label for="password" class="form-label" style="margin-bottom: 0;">Password *</label>
+                        <a href="/forgot-password" style="font-size: 0.85rem; color: var(--accent-green); text-decoration: none; font-weight: 500;">Forgot Password?</a>
+                    </div>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required
+                        placeholder="••••••••"
+                        class="form-input"
+                    />
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+                
+                <div style="text-align: center; font-size: 0.9rem; color: var(--text-secondary);">
+                    Don't have an account? <a href="/signup" style="color: var(--accent-green); text-decoration: none; font-weight: 500; transition: color 0.2s ease;">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,113 @@
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<main>
+    <div class="container page-padding">
+        <div class="form-container">
+            <div class="form-header">
+                <h2 class="form-title">Edit Blog</h2>
+                <p class="form-subtitle">Update the blog details</p>
+            </div>
+
+            <form method="POST" action="/edit/<%= typeof id !== 'undefined' ? id : '#' %>" class="form-wrapper" enctype="multipart/form-data">
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="error-banner" style="background-color: rgba(220, 38, 38, 0.2); border: 1px solid #dc2626; color: #fca5a5; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= error %>
+                    </div>
+                <% } %>
+                <div class="form-group">
+                    <label for="title" class="form-label">Blog Title *</label>
+                    <input 
+                        type="text"
+                        value="<%= typeof title !== 'undefined' ? title : '' %>"
+                        id="title" 
+                        name="title" 
+                        required
+                        placeholder="Enter blog title"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="author" class="form-label">Author Name *</label>
+                    <input 
+                        type="text" 
+                        id="author"
+                        name="author" 
+                        required
+                        placeholder="Author name"
+                        value="<%= typeof author !== 'undefined' ? author : '' %>"
+                        class="form-input"
+                    />
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="readTime" class="form-label">Read Time (mins) *</label>
+                        <input 
+                            type="number" 
+                            id="readTime" 
+                            name="readTime" 
+                            required
+                            min="1"
+                            max="600"
+                            placeholder="5"
+                            value="<%= typeof readTime !== 'undefined' ? readTime : '' %>"
+                            class="form-input"
+                        />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="category" class="form-label">Category *</label>
+                        <select 
+                            id="category" 
+                            name="category" 
+                            required
+                            class="form-select"
+                        >
+                            <option value="">Select Category</option>
+                            <option value="Technology" <% if (typeof category !== 'undefined' && category === 'Technology') { %>selected<% } %>>Technology</option>
+                            <option value="Lifestyle" <% if (typeof category !== 'undefined' && category === 'Lifestyle') { %>selected<% } %>>Lifestyle</option>
+                            <option value="Travel" <% if (typeof category !== 'undefined' && category === 'Travel') { %>selected<% } %>>Travel</option>
+                            <option value="Food" <% if (typeof category !== 'undefined' && category === 'Food') { %>selected<% } %>>Food</option>
+                            <option value="Fashion" <% if (typeof category !== 'undefined' && category === 'Fashion') { %>selected<% } %>>Fashion</option>
+                            <option value="Business" <% if (typeof category !== 'undefined' && category === 'Business') { %>selected<% } %>>Business</option>
+                            <option value="Health" <% if (typeof category !== 'undefined' && category === 'Health') { %>selected<% } %>>Health</option>
+                            <option value="Education" <% if (typeof category !== 'undefined' && category === 'Education') { %>selected<% } %>>Education</option>
+                            <option value="Other" <% if (typeof category !== 'undefined' && category === 'Other') { %>selected<% } %>>Other</option>
+                        </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label for="content" class="form-label">Content *</label>
+                    <textarea 
+                        id="content" 
+                        name="content" 
+                        required
+                        placeholder="Enter blog content..."
+                        rows="6"
+                        class="form-textarea"
+                    ><%= typeof content !== 'undefined' ? content : '' %></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="image" class="form-label">Blog Image</label>
+                    <input 
+                        type="file" 
+                        id="image" 
+                        name="image" 
+                        accept="image/*"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">Update Blog</button>
+                    <a href="/" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

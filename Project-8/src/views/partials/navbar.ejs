@@ -1,0 +1,23 @@
+<nav>
+    <div class="container nav-wrapper">
+        <div>
+            <a href="/" style="text-decoration: none;"><h1>BlogHub</h1></a>
+        </div>
+        <ul>
+            <% if (typeof user !== 'undefined' && user) { %>
+                <li style="color: var(--text-secondary); font-size: 0.95rem; display: flex; align-items: center;">
+                    Welcome, &nbsp;<strong style="color: var(--text-primary);"><%= user.username %></strong>
+                </li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/add">Add Blog</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/health-check">Status</a></li>
+                <li><a href="/logout" style="color: #fca5a5; font-weight: 500;">Logout</a></li>
+            <% } else { %>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Signup</a></li>
+                <li><a href="/health-check">Status</a></li>
+            <% } %>
+        </ul>
+    </div>
+</nav>

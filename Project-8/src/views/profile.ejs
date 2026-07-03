@@ -1,0 +1,100 @@
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<main>
+    <div class="container page-padding">
+        <div class="form-container">
+            <div class="form-header">
+                <h2 class="form-title">User Profile</h2>
+                <p class="form-subtitle">View your details and update your security settings</p>
+            </div>
+
+            <!-- Profile Details Card -->
+            <div class="form-wrapper" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--text-primary); margin-bottom: 1.5rem; font-size: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Account Information</h3>
+                
+                <div class="form-group">
+                    <label class="form-label" style="color: var(--text-tertiary);">Username</label>
+                    <div style="background-color: var(--bg-primary); border: 1px solid var(--border-color); padding: 0.9rem; border-radius: 6px; color: var(--text-primary); font-weight: 500;">
+                        <%= user.username %>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" style="color: var(--text-tertiary);">Email Address</label>
+                    <div style="background-color: var(--bg-primary); border: 1px solid var(--border-color); padding: 0.9rem; border-radius: 6px; color: var(--text-primary); font-weight: 500;">
+                        <%= user.email %>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Change Password Form -->
+            <form method="POST" action="/profile/change-password" class="form-wrapper">
+                <h3 style="color: var(--text-primary); margin-bottom: 1.5rem; font-size: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Change Password</h3>
+
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="error-banner" style="background-color: rgba(220, 38, 38, 0.2); border: 1px solid #dc2626; color: #fca5a5; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= error %>
+                    </div>
+                <% } else if (typeof errorMessages !== 'undefined' && errorMessages.length > 0) { %>
+                    <div class="error-banner" style="background-color: rgba(220, 38, 38, 0.2); border: 1px solid #dc2626; color: #fca5a5; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= errorMessages[0] %>
+                    </div>
+                <% } %>
+
+                <% if (typeof success !== 'undefined' && success) { %>
+                    <div class="success-banner" style="background-color: rgba(74, 124, 89, 0.2); border: 1px solid var(--accent-green); color: #a7f3d0; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= success %>
+                    </div>
+                <% } else if (typeof successMessages !== 'undefined' && successMessages.length > 0) { %>
+                    <div class="success-banner" style="background-color: rgba(74, 124, 89, 0.2); border: 1px solid var(--accent-green); color: #a7f3d0; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: center;">
+                        <%= successMessages[0] %>
+                    </div>
+                <% } %>
+
+                <div class="form-group">
+                    <label for="currentPassword" class="form-label">Current Password *</label>
+                    <input 
+                        type="password" 
+                        id="currentPassword" 
+                        name="currentPassword" 
+                        required
+                        placeholder="Enter current password"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword" class="form-label">New Password *</label>
+                    <input 
+                        type="password" 
+                        id="newPassword" 
+                        name="newPassword" 
+                        required
+                        placeholder="At least 6 characters"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label for="confirmPassword" class="form-label">Confirm New Password *</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword" 
+                        required
+                        placeholder="Confirm new password"
+                        class="form-input"
+                    />
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary btn-block">Update Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
