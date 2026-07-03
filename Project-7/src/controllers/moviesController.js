@@ -3,7 +3,7 @@ const asyncHandler = require("../utils/asyncHandler");
 const ApiError = require("../utils/ApiError");
 
 const indexPage = asyncHandler(async (req, res) => {
-    const movies = await Movies.find().sort({ createdAt: -1 });
+    const movies = await Movies.find().populate("author").sort({ createdAt: -1 });
     res.render("index", { movies });
 });
 
@@ -33,7 +33,8 @@ const createMovie = asyncHandler(async (req, res) => {
         genre: genre.trim(),
         description: description?.trim() || "",
         poster: `/uploads/${req.file.filename}`,
-        rating: rating ? parseFloat(rating) : null
+        rating: rating ? parseFloat(rating) : null,
+        author: req.user._id
     };
 
     const movie = await Movies.create(movieData);

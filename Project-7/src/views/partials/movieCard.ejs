@@ -18,6 +18,9 @@
             <p class="movie-card-info-item">
                 <span class="movie-card-info-label">Genre</span><br/><%= movie.genre || '—' %>
             </p>
+            <p class="movie-card-info-item">
+                <span class="movie-card-info-label">Added By</span><br/><%= (movie.author && movie.author.username) ? movie.author.username : 'Unknown' %>
+            </p>
             <% if (typeof movie.rating !== 'undefined' && movie.rating) { %>
                 <p class="movie-card-info-item">
                     <span class="movie-card-info-label">Rating</span><br/><%= movie.rating %>/10
