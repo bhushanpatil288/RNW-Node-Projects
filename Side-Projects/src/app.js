@@ -10,6 +10,10 @@ app.use(morgan("dev"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(router);
+
+app.use(require("./middlewares/errorHandler.js"));
 
 module.exports = app;

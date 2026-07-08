@@ -7,3 +7,7 @@ connectDB().then(() => {
         console.log(`🖧  Listening on -> ${configEnv.BASE_URL}:${configEnv.PORT}/`);
     })
 })
+.catch((err) => {
+    console.error(err);
+    process.exit(1);
+});

@@ -1,21 +1,18 @@
 require("dotenv").config();
 
-if (!process.env.PORT) {
-    throw new Error("Missing PORT in environmental variables");
-};
+const required = ["PORT", "BASE_URL", "MONGO_URI", "NODE_ENV"];
 
-if (!process.env.BASE_URL) {
-    throw new Error("Missing BASE_URL  in environmental variables");
-};
-
-if (!process.env.MONGO_URI) {
-    throw new Error("Missing MONGO_URI in environmental variables");
+for (const key of required) {
+    if (!process.env[key]) {
+        throw new Error (`Missing ${key} in environment variables`);
+    }
 };
 
 const envConfig = {
-    PORT: process.env.PORT,
+    PORT: Number(process.env.PORT),
     BASE_URL: process.env.BASE_URL,
-    MONGO_URI: process.env.MONGO_URI
+    MONGO_URI: process.env.MONGO_URI,
+    NODE_ENV: process.env.NODE_ENV
 };
 
 module.exports = envConfig;
