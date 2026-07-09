@@ -12,6 +12,10 @@ router.get("/test-error", asyncHandler(async (_, res) => {
     throw new AppError(500, "This is a test error!");
 }));
 
+// main routes
+router.use("/auth", require("./auth.routes.js"));
+router.use("/", require("./product.routes.js"));
+
 
 
 module.exports = router;
