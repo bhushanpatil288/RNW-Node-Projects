@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
     console.log(result)
     
     if (!result) {
-        throw new AppError(400, "Invalid token");
+        res.redirect("/auth/login");
     }
 
     req.user = result;

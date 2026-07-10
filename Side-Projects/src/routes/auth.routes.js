@@ -5,9 +5,9 @@ const {
     registerController
 } = require("../controllers/auth.controllers.js");
 const asyncHandler = require("../utils/asyncHandler.js");
-const authMiddleware = require("../middlewares/authMiddleware.js");
+const isLoggedIn = require("../middlewares/isLoggedIn.js");
 
-router.get("/register", authMiddleware, asyncHandler(registerPageController));
-router.post("/register", authMiddleware , asyncHandler(registerController));
+router.get("/register", isLoggedIn, asyncHandler(registerPageController));
+router.post("/register", asyncHandler(registerController));
 
 module.exports = router;

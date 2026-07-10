@@ -35,7 +35,7 @@ Base: `/`
 Base: `/auth`
 | Method | Route | Description |
 |--------|-------|-------------|
-| GET | `/auth/register` | Registration page (currently protected by auth middleware) |
+| GET | `/auth/register` | Registration page (reads login state via `isLoggedIn` middleware) |
 | POST | `/auth/register` | Creates a new user and issues a JWT cookie |
 
 ### Product Routes
@@ -43,8 +43,6 @@ Base: `/`
 | Method | Route | Description |
 |--------|-------|-------------|
 | GET | `/products` | Renders the products page |
-
-> Note: In the current code, `/auth/register` is protected by `authMiddleware`, while `/products` is not protected.
 
 ## Utilities
 - `src/utils/genToken.js`
