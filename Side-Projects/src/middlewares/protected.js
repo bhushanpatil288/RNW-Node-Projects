@@ -1,7 +1,7 @@
 const decryptToken = require("../utils/decryptToken.js");
 const AppError = require("../utils/AppError.js");
 
-const authMiddleware = (req, res, next) => {
+const protected = (req, res, next) => {
     console.log(req.cookies)
     const token = req.cookies.token;
     const result = decryptToken(token);
@@ -16,4 +16,4 @@ const authMiddleware = (req, res, next) => {
     next();
 }
 
-module.exports = authMiddleware;
+module.exports = protected;
