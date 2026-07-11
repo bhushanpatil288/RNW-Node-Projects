@@ -4,10 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-    <header>All Products</header>
-    <main></main>
-    <footer></footer>
+<body class="min-h-screen bg-slate-50 text-slate-800">
+    <header class="bg-slate-900 text-white">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8">
+            <div>
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Featured Picks</p>
+                <h1 class="text-2xl font-semibold sm:text-3xl">Shop Our Products</h1>
+            </div>
+            <a href="/" class="rounded-full border border-slate-700 px-4 py-2 text-sm font-medium transition hover:bg-slate-800">
+                Back Home
+            </a>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <section class="mb-8 text-center sm:text-left">
+            <h2 class="text-3xl font-semibold text-slate-900">Discover everyday favorites</h2>
+            <p class="mt-2 text-base text-slate-600">
+                Browse a curated selection of trending products designed for comfort, style, and performance.
+            </p>
+        </section>
+
+        <section class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <% products.forEach(product => { %>
+                <%- include('partials/productCard', { product }) %>
+            <% }) %>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white/80 py-6">
+        <div class="mx-auto max-w-7xl px-4 text-center text-sm text-slate-500 sm:px-6 lg:px-8">
+            Built with Tailwind CSS and EJS partials.
+        </div>
+    </footer>
 </body>
 </html>
