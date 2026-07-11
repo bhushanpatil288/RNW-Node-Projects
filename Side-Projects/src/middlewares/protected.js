@@ -6,7 +6,7 @@ const protected = (req, res, next) => {
     const result = decryptToken(token);
     
     if (!result) {
-        res.redirect("/auth/login");
+        return res.redirect("/auth/login");
     }
 
     req.user = result;
