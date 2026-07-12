@@ -23,6 +23,7 @@ router.get("/", asyncHandler(async (req, res) => {
 
 router.use("/auth", require("./auth.routes.js"));
 router.use("/products", require("./product.routes.js"));
+router.use("/user", require("./user.routes.js"));
 
 
 

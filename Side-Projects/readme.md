@@ -8,9 +8,10 @@ The app starts from [server.js](server.js), loads [src/app.js](src/app.js), and 
 ## Features
 - User registration and login
 - JWT-based authentication with cookie storage
-- Protected product routes
+- Protected product and profile routes
 - Product listing page
 - Add-product form with image upload using Multer
+- User profile page with account overview and quick actions
 - Reusable EJS partials for layout, navbar, and footer
 - MongoDB-backed product storage
 
@@ -60,6 +61,11 @@ The app starts from [server.js](server.js), loads [src/app.js](src/app.js), and 
 | GET | `/products` | Displays the products page |
 | GET | `/products/add` | Shows the add-product form |
 | POST | `/products/add` | Uploads a product image and creates a product |
+
+### User Routes
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/user/profile` | Shows the authenticated user profile page |
 
 ## Important Files
 - [src/config/configEnv.js](src/config/configEnv.js) — loads environment variables
