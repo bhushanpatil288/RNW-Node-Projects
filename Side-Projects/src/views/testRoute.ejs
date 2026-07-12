@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Server Online</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
+<%- include('partials/head', { title: 'Server Online' }) %>
 
 <body class="min-h-screen select-none bg-gradient-to-br from-blue-50 via-sky-50 to-blue-100 flex items-center justify-center p-6">
 
@@ -79,5 +72,4 @@
 
   </div>
 
-</body>
-</html>
+<%- include('partials/footer', { message: 'Everything is configured correctly.' }) %>

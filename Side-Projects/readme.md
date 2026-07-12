@@ -1,14 +1,34 @@
-# PROJECT INFO
+# Side Projects
 
 ## Overview
-This project is a Node.js + Express app using EJS views, MongoDB, JWT authentication, and cookie-based session handling. The application starts from `server.js`, loads `src/app.js`, and uses routes defined in `src/routes`.
+This project is a Node.js + Express application that demonstrates authentication, protected routes, product browsing, and image uploads using EJS views and MongoDB.
+
+The app starts from [server.js](server.js), loads [src/app.js](src/app.js), and uses route modules from [src/routes](src/routes).
+
+## Features
+- User registration and login
+- JWT-based authentication with cookie storage
+- Protected product routes
+- Product listing page
+- Add-product form with image upload using Multer
+- Reusable EJS partials for layout, navbar, and footer
+- MongoDB-backed product storage
+
+## Project Structure
+- [server.js](server.js) — starts the server
+- [src/app.js](src/app.js) — configures Express, middleware, routing, and view engine
+- [src/controllers](src/controllers) — route handlers for auth and products
+- [src/routes](src/routes) — application routes
+- [src/models](src/models) — Mongoose models
+- [src/views](src/views) — EJS templates and partials
+- [src/middlewares](src/middlewares) — auth, protection, upload, and error handling
 
 ## Setup
 1. Install dependencies:
    ```bash
    npm install
    ```
-2. Create a `.env` file in the project root with these keys:
+2. Create a `.env` file in the project root with these values:
    - `PORT`
    - `BASE_URL`
    - `MONGO_URI`
@@ -19,53 +39,44 @@ This project is a Node.js + Express app using EJS views, MongoDB, JWT authentica
    npm run dev
    ```
 
-## Entry Point
-- `server.js` starts the app
-- `src/app.js` configures Express, middlewares, routes, and error handling
-
 ## Routes
 ### Test Routes
-Base: `/`
 | Method | Route | Description |
 |--------|-------|-------------|
-| GET | `/test` | Renders the test route view |
-| GET | `/test-error` | Throws a test error to exercise error handling |
+| GET | `/test` | Renders a basic server health page |
+| GET | `/test-error` | Triggers a sample error for testing |
 
 ### Auth Routes
-Base: `/auth`
 | Method | Route | Description |
 |--------|-------|-------------|
-| GET | `/auth/register` | Registration page (reads login state via `isLoggedIn` middleware) |
-| POST | `/auth/register` | Creates a new user and issues a JWT cookie |
+| GET | `/auth/register` | Shows the registration form |
+| POST | `/auth/register` | Registers a new user and issues a JWT cookie |
+| GET | `/auth/login` | Shows the login form |
+| POST | `/auth/login` | Authenticates the user and issues a JWT cookie |
 
 ### Product Routes
-Base: `/`
 | Method | Route | Description |
 |--------|-------|-------------|
-| GET | `/products` | Renders the products page |
-
-## Utilities
-- `src/utils/genToken.js`
-  - Creates a JWT from an object payload
-  - Uses `JWT_SECRET` and expires in 1 day
-- `src/utils/decryptToken.js`
-  - Verifies and decodes a JWT
-  - Returns decoded payload or `false` on failure
+| GET | `/products` | Displays the products page |
+| GET | `/products/add` | Shows the add-product form |
+| POST | `/products/add` | Uploads a product image and creates a product |
 
 ## Important Files
-- `src/config/configEnv.js` — loads required environment variables
-- `src/config/configDB.js` — connects to MongoDB
-- `src/middlewares/authMiddleware.js` — validates JWT cookie and sets `req.user`
-- `src/middlewares/errorHandler.js` — global error handler
+- [src/config/configEnv.js](src/config/configEnv.js) — loads environment variables
+- [src/config/configDB.js](src/config/configDB.js) — connects to MongoDB
+- [src/middlewares/protected.js](src/middlewares/protected.js) — protects authenticated routes
+- [src/middlewares/upload.js](src/middlewares/upload.js) — handles image uploads for products
+- [src/middlewares/errorHandler.js](src/middlewares/errorHandler.js) — global error handler
 
 ## Dependencies
-- `express`
-- `ejs`
-- `mongoose`
-- `jsonwebtoken`
-- `bcrypt`
-- `cookie-parser`
-- `morgan`
-- `dotenv`
-- `nodemon`
+- express
+- ejs
+- mongoose
+- jsonwebtoken
+- bcrypt
+- cookie-parser
+- morgan
+- multer
+- dotenv
+- nodemon
 

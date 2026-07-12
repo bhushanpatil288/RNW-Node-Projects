@@ -1,5 +1,10 @@
-const productsPageController = (req, res) => {
-    const products = [
+const Product = require("../models/product.model.js");
+
+const productsPageController = async (req, res) => {
+    const products = await Product.find().lean();
+
+    if (!products.length) {
+        const fallbackProducts = [
         {
             title: "Aurora Headphones",
             description: "Immersive sound with deep bass and all-day comfort.",
@@ -26,9 +31,46 @@ const productsPageController = (req, res) => {
         }
     ];
 
-    res.render("products", { products });
+        res.render("products", {
+            products: fallbackProducts,
+            isLoggedIn: Boolean(req.user)
+        });
+        return;
+    }
+
+    res.render("products", {
+        products,
+        isLoggedIn: Boolean(req.user)
+    });
+}
+
+const addProductPageController = async (req, res) => {
+    res.render("addProduct", {
+        title: "Add Product"
+    });
+}
+
+const addProductController = async (req, res) => {
+    const { title, description, price } = req.body;
+
+    if (!title || !price || !req.file) {
+        return res.redirect("/products/add");
+    }
+
+    const productImg = `/uploads/${req.file.filename}`;
+
+    await Product.create({
+        title,
+        description,
+        price: Number(price),
+        productImg
+    });
+
+    res.redirect("/products");
 }
 
 module.exports = {
-    productsPageController
+    productsPageController,
+    addProductPageController,
+    addProductController
 }

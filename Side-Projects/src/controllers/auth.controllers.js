@@ -69,8 +69,6 @@ const loginController = async (req, res) => {
         return res.redirect("/products");
     }
 
-    console.log(req.body)
-
     const { usernameOrEmail, password } = req.body;
 
 
