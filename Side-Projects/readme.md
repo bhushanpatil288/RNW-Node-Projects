@@ -1,41 +1,41 @@
 # Side Projects
 
 ## Overview
-This project is a Node.js + Express application that demonstrates authentication, protected routes, product browsing, and image uploads using EJS views and MongoDB.
+This project is a Node.js + Express application for learning full-stack basics with authentication, protected routes, product management, and image uploads. It uses EJS for rendering, MongoDB for persistence, and JWT cookies for session handling.
 
-The app starts from [server.js](server.js), loads [src/app.js](src/app.js), and uses route modules from [src/routes](src/routes).
+The app starts from [server.js](server.js), loads [src/app.js](src/app.js), and routes requests through [src/routes](src/routes).
 
 ## Features
 - User registration and login
 - JWT-based authentication with cookie storage
-- Protected product and profile routes
-- Product listing page
-- Add-product form with image upload using Multer
-- User profile page with account overview and quick actions
-- Reusable EJS partials for layout, navbar, and footer
-- MongoDB-backed product storage
+- Protected product and profile pages
+- Product listing and add-product flow
+- Image upload support for products using Multer
+- User profile page with account access
+- Reusable EJS views and partials
+- MongoDB-backed data storage
 
 ## Project Structure
-- [server.js](server.js) — starts the server
-- [src/app.js](src/app.js) — configures Express, middleware, routing, and view engine
-- [src/controllers](src/controllers) — route handlers for auth and products
-- [src/routes](src/routes) — application routes
+- [server.js](server.js) — starts the server and connects to the database
+- [src/app.js](src/app.js) — configures Express, middleware, view engine, and routing
+- [src/controllers](src/controllers) — handles auth, product, and user requests
+- [src/routes](src/routes) — defines the app routes
 - [src/models](src/models) — Mongoose models
 - [src/views](src/views) — EJS templates and partials
-- [src/middlewares](src/middlewares) — auth, protection, upload, and error handling
+- [src/middlewares](src/middlewares) — auth protection, upload handling, and error handling
 
 ## Setup
 1. Install dependencies:
    ```bash
    npm install
    ```
-2. Create a `.env` file in the project root with these values:
+2. Create a `.env` file in the project root with the following variables:
    - `PORT`
    - `BASE_URL`
    - `MONGO_URI`
    - `NODE_ENV`
    - `JWT_SECRET`
-3. Start the app in development mode:
+3. Start the application in development mode:
    ```bash
    npm run dev
    ```
@@ -44,16 +44,16 @@ The app starts from [server.js](server.js), loads [src/app.js](src/app.js), and 
 ### Test Routes
 | Method | Route | Description |
 |--------|-------|-------------|
-| GET | `/test` | Renders a basic server health page |
+| GET | `/test` | Renders a basic test page |
 | GET | `/test-error` | Triggers a sample error for testing |
 
 ### Auth Routes
 | Method | Route | Description |
 |--------|-------|-------------|
 | GET | `/auth/register` | Shows the registration form |
-| POST | `/auth/register` | Registers a new user and issues a JWT cookie |
+| POST | `/auth/register` | Registers a user and creates a session cookie |
 | GET | `/auth/login` | Shows the login form |
-| POST | `/auth/login` | Authenticates the user and issues a JWT cookie |
+| POST | `/auth/login` | Authenticates a user and creates a session cookie |
 
 ### Product Routes
 | Method | Route | Description |
@@ -61,18 +61,18 @@ The app starts from [server.js](server.js), loads [src/app.js](src/app.js), and 
 | GET | `/products` | Displays the products page |
 | GET | `/products/add` | Shows the add-product form |
 | POST | `/products/add` | Uploads a product image and creates a product |
+| DELETE | `/products/remove/:id` | Removes a product by ID |
 
 ### User Routes
 | Method | Route | Description |
 |--------|-------|-------------|
-| GET | `/user/profile` | Shows the authenticated user profile page |
+| GET | `/user/profile` | Shows the authenticated profile page |
 
-## Important Files
+## Main Files
 - [src/config/configEnv.js](src/config/configEnv.js) — loads environment variables
-- [src/config/configDB.js](src/config/configDB.js) — connects to MongoDB
 - [src/middlewares/protected.js](src/middlewares/protected.js) — protects authenticated routes
-- [src/middlewares/upload.js](src/middlewares/upload.js) — handles image uploads for products
-- [src/middlewares/errorHandler.js](src/middlewares/errorHandler.js) — global error handler
+- [src/middlewares/upload.js](src/middlewares/upload.js) — handles image uploads
+- [src/middlewares/errorHandler.js](src/middlewares/errorHandler.js) — global error handling
 
 ## Dependencies
 - express
