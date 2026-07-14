@@ -1,6 +1,7 @@
 const User = require("../models/user.model.js");
 const AppError = require("../utils/AppError.js");
 const decryptToken = require("../utils/decryptToken.js");
+const otpGen = require("otp-generator");
 
 const profilePageController = async (req, res) => {
     const userInfo = await User.findById(req.user.id).lean().select("-password -__v");
@@ -49,7 +50,47 @@ const resetPasswordController = async (req, res) => {
         throw new AppError(400, "New password and confirm passwords are not matching");
     };
 
-    user.password = passwordNew;
+    user.otp = otpGen.generate(4, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false, digits: true })
+    user.candidatePassword = passwordNew;
+
+    console.log(`OTP: ${user.otp}`);
+
+    await user.save();
+
+    res.redirect("/user/reset-password");
+}
+
+const resetPasswordPageController = async (req, res) => {
+    res.render("resetPassword");
+}
+
+const verifyOtp = async (req, res) => {
+    const { otp } = req.body;
+
+    if (!otp) {
+        throw new AppError(400, "OTP is required");
+    };
+
+    const token = req.cookies?.token;
+    const ddata = decryptToken(token);
+    const userId = ddata.id;
+
+    const user = await User.findById(userId);
+
+    if (!user?.otp || !user?.candidatePassword) {
+        throw new AppError(409, "Bad request");
+    };
+
+    if (Number(user.otp) !== Number(otp)) {
+        user.candidatePassword = null;
+        user.otp = null;
+        throw new AppError(400, "Entered wrong otp");
+    };
+
+    user.password = user.candidatePassword;
+    user.candidatePassword = null;
+    user.otp = null;
+
     await user.save();
 
     res.redirect("/user/profile");
@@ -57,5 +98,7 @@ const resetPasswordController = async (req, res) => {
 
 module.exports = {
     profilePageController,
-    resetPasswordController
+    resetPasswordController,
+    resetPasswordPageController,
+    verifyOtp
 }

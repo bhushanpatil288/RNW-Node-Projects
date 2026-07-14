@@ -18,6 +18,14 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    candidatePassword: {
+        type: String,
+        default: null
+    },
+    otp: {
+        type: Number,
+        default: null
     }
 }, { timestamps: true });
 
