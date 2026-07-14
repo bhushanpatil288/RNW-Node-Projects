@@ -54,6 +54,9 @@ The app starts from [server.js](server.js), loads [src/app.js](src/app.js), and 
 | POST | `/auth/register` | Registers a user and creates a session cookie |
 | GET | `/auth/login` | Shows the login form |
 | POST | `/auth/login` | Authenticates a user and creates a session cookie |
+| GET | `/auth/reset-password` | Shows the OTP verification page after reset password request |
+| POST | `/auth/reset-password` | Generates OTP and saves the new password candidate for the logged-in user |
+| POST | `/auth/verify-otp` | Validates the OTP and applies the pending password change for the logged-in user |
 
 ### Product Routes
 | Method | Route | Description |
