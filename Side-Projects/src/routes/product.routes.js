@@ -4,7 +4,8 @@ const {
     productsPageController,
     addProductPageController,
     addProductController,
-    removeProductController
+    removeProductController,
+    categoryFilterController
 } = require("../controllers/products.controllers.js");
 const asyncHandler = require("../utils/asyncHandler.js");
 const protected = require("../middlewares/protected.js");
@@ -13,6 +14,7 @@ const upload = require("../middlewares/upload.js");
 router.get("/", protected, asyncHandler(productsPageController));
 router.get("/add", protected, asyncHandler(addProductPageController));
 router.post("/add", protected, upload, asyncHandler(addProductController));
-router.delete("/remove/:id", protected, asyncHandler(removeProductController))
+router.delete("/remove/:id", protected, asyncHandler(removeProductController));
+router.get("/filter/:id", protected, asyncHandler(categoryFilterController));
 
 module.exports = router;

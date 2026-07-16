@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     listenForProductDelete();
+    listenForCategoryFilter();
 });
 
 
@@ -22,10 +23,22 @@ const listenForProductDelete = () => {
             } else {
                 window.location.reload();
             }
-            
+
             console.log(`Product ${id} deleted`);
         } catch (e) {
             console.log(e);
         }
     })
-}
+};
+
+const listenForCategoryFilter = () => {
+    document.addEventListener("click", (e) => {
+        const catBtn = e.target.closest(".category-btn");
+        if (!catBtn) return;
+
+        e.preventDefault();
+
+        const catId = catBtn.dataset.categoryId;
+        window.location.href = `/products/filter/${catId}`;
+    });
+};

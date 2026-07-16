@@ -10,6 +10,14 @@
 
 <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <section class="mb-8 text-center sm:text-left">
+            <h2 class="text-2xl font-medium mb-3">Categories</h2>
+            <ul>
+                <% categories.forEach(category => { %>
+                    <li><button data-category-id="<%= category._id %>" class="category-btn cursor-pointer px-3 py-1 bg-slate-700 text-white rounded-md"><%= category.categoryTitle %></button></li>
+                <% }) %>
+            </ul>
+        </section>
+        <section class="mb-8 text-center sm:text-left">
             <h2 class="text-3xl font-semibold text-slate-900">Discover everyday favorites</h2>
             <p class="mt-2 text-base text-slate-600">
                 Browse a curated selection of trending products designed for comfort, style, and performance.

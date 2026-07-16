@@ -1,8 +1,10 @@
 const Product = require("../models/product.model.js");
+const Category = require("../models/categories.model.js");
 const AppError = require("../utils/AppError.js");
 
 const productsPageController = async (req, res) => {
-    const products = await Product.find().lean();
+    const products = await Product.find().lean().populate("category");
+    const categories = await Category.find().lean();
 
     if (!products.length) {
         const fallbackProducts = [
@@ -32,15 +34,17 @@ const productsPageController = async (req, res) => {
             }
         ];
 
+        
         res.render("products", {
             products: fallbackProducts,
             isLoggedIn: Boolean(req.user)
         });
         return;
     }
-
+    
     res.render("products", {
         products,
+        categories,
         isLoggedIn: Boolean(req.user)
     });
 }
@@ -52,7 +56,7 @@ const addProductPageController = async (req, res) => {
 }
 
 const addProductController = async (req, res) => {
-    const { title, description, price } = req.body;
+    const { title, description, price, category } = req.body;
 
     if (!title || !price || !req.file) {
         return res.redirect("/products/add");
@@ -60,18 +64,31 @@ const addProductController = async (req, res) => {
 
     const productImg = `/uploads/${req.file.filename}`;
 
-    await Product.create({
-        title,
-        description,
-        price: Number(price),
-        productImg
-    });
+    const categoryExists = await Category.findOne({ categoryTitle: category });
+
+    if (!categoryExists) {
+        const catRes = await Category.create({ categoryTitle: category });   
+        await Product.create({
+            title,
+            description,
+            price: Number(price),
+            productImg,
+            category: catRes._id
+        });
+    } else {
+        await Product.create({
+            title,
+            description,
+            price: Number(price),
+            productImg,
+            category: categoryExists._id
+        })
+    }
 
     res.redirect("/products");
 }
 
 const removeProductController = async (req, res) => {
-    console.log("test")
     const { id } = req.params;
 
     const product = await Product.findById(id);
@@ -83,7 +100,6 @@ const removeProductController = async (req, res) => {
     const imgLoc = product.productImg;
     const fs = require("fs/promises");
     const path = require("path");
-    console.log(path.join(__dirname, "../public", imgLoc));
     await fs.unlink(path.join(__dirname, "../public", imgLoc));
 
     await Product.findByIdAndDelete(id);
@@ -91,11 +107,22 @@ const removeProductController = async (req, res) => {
     res.json({
         success: true
     });
+};
+
+const categoryFilterController = async (req, res) => {
+    const products = await Product.find({ category: req.params.id}).lean().populate("category");
+    const categories = await Category.find().lean();
+    res.render("products", {
+        products,
+        categories,
+        isLoggedIn: Boolean(req.user)
+    })
 }
 
 module.exports = {
     productsPageController,
     addProductPageController,
     addProductController,
-    removeProductController
+    removeProductController,
+    categoryFilterController
 }
