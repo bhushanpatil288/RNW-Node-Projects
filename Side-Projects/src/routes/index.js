@@ -20,7 +20,7 @@ router.get("/", asyncHandler(async (req, res) => {
     const token = req.cookies?.token;
     const user = token ? decryptToken(token) : null;
 
-    res.render("index", { isLoggedIn: Boolean(user) });
+    res.render("index", { isLoggedIn: Boolean(user), user: user });
 }));
 
 router.use("/auth", require("./auth.routes.js"));

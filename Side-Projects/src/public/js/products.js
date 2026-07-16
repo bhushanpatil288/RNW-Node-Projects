@@ -10,8 +10,10 @@ const listenForProductDelete = () => {
         if (!deleteBtn) return;
         const id = deleteBtn.dataset.deleteId;
 
+        if (!confirm("Are you sure you want to delete this product?")) return;
+
         try {
-            const res = await fetch(`http://localhost:8080/products/remove/${id}`, {
+            const res = await fetch(`/products/remove/${id}`, {
                 method: "DELETE",
                 headers: {
                     "content-Type": "application/json",

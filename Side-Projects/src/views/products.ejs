@@ -1,34 +1,166 @@
 <%- include('partials/head', { title: 'Products' }) %>
-<%- include('partials/navbar', {
-    eyebrow: 'Featured Picks',
-    title: 'Shop Our Products',
-    showAddProduct: isLoggedIn,
-    showAuthAction: false,
-    authHref: '/auth/login',
-    authLabel: 'Sign In'
-}) %>
 
-<main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <section class="mb-8 text-center sm:text-left">
-            <h2 class="text-2xl font-medium mb-3">Categories</h2>
-            <ul>
-                <% categories.forEach(category => { %>
-                    <li><button data-category-id="<%= category._id %>" class="category-btn cursor-pointer px-3 py-1 bg-slate-700 text-white rounded-md"><%= category.categoryTitle %></button></li>
-                <% }) %>
-            </ul>
-        </section>
-        <section class="mb-8 text-center sm:text-left">
-            <h2 class="text-3xl font-semibold text-slate-900">Discover everyday favorites</h2>
-            <p class="mt-2 text-base text-slate-600">
-                Browse a curated selection of trending products designed for comfort, style, and performance.
-            </p>
-        </section>
+<%- include('partials/sidebar', { activePage: 'products' }) %>
+<%- include('partials/header', { user: typeof user !== 'undefined' ? user : null }) %>
 
-        <section class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            <% products.forEach(product => { %>
-                <%- include('partials/productCard', { product }) %>
-            <% }) %>
-        </section>
-    </main>
+  <!-- ========== section start ========== -->
+  <section class="section">
+    <div class="container-fluid">
+      <!-- ========== title-wrapper start ========== -->
+      <div class="title-wrapper pt-30">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="title">
+              <h2>Products Management</h2>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="breadcrumb-wrapper">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Products</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ========== title-wrapper end ========== -->
 
-<%- include('partials/footer', { message: 'Built with Tailwind CSS and EJS partials.' }) %>
+      <!-- ========== stat cards ========== -->
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+          <div class="icon-card mb-30">
+            <div class="icon purple">
+              <i class="lni lni-cart-full"></i>
+            </div>
+            <div class="content">
+              <h6 class="mb-10">Total Products</h6>
+              <h3 class="text-bold mb-10"><%= products.length %></h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+          <div class="icon-card mb-30">
+            <div class="icon success">
+              <i class="lni lni-tag"></i>
+            </div>
+            <div class="content">
+              <h6 class="mb-10">Categories</h6>
+              <h3 class="text-bold mb-10"><%= typeof categories !== 'undefined' ? categories.length : 0 %></h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+          <div class="icon-card mb-30">
+            <div class="icon primary">
+              <i class="lni lni-plus"></i>
+            </div>
+            <div class="content">
+              <h6 class="mb-10">Quick Action</h6>
+              <a href="/products/add" class="main-btn primary-btn btn-sm btn-hover">Add Product</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== category filters ========== -->
+      <% if (typeof categories !== 'undefined' && categories && categories.length) { %>
+      <div class="row mb-20">
+        <div class="col-12">
+          <div class="card-style p-20">
+            <h6 class="mb-10">Filter by Category</h6>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="/products" class="main-btn light-btn btn-sm btn-hover">All</a>
+              <% categories.forEach(category => { %>
+                <button data-category-id="<%= category._id %>" class="category-btn main-btn light-btn btn-sm btn-hover"><%= category.categoryTitle %></button>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- ========== products table ========== -->
+      <div class="tables-wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card-style mb-30">
+              <div class="title d-flex flex-wrap justify-content-between align-items-center">
+                <div class="left">
+                  <h6 class="text-medium mb-10">All Products</h6>
+                </div>
+                <div class="right">
+                  <a href="/products/add" class="main-btn primary-btn btn-sm btn-hover">
+                    <i class="lni lni-plus me-2"></i> Add New
+                  </a>
+                </div>
+              </div>
+              <div class="table-wrapper table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th><h6 class="text-sm text-medium">Image</h6></th>
+                      <th><h6 class="text-sm text-medium">Title</h6></th>
+                      <th class="min-width"><h6 class="text-sm text-medium">Description</h6></th>
+                      <th class="min-width"><h6 class="text-sm text-medium">Category</h6></th>
+                      <th class="min-width"><h6 class="text-sm text-medium">Price</h6></th>
+                      <th><h6 class="text-sm text-medium">Action</h6></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (products.length === 0) { %>
+                      <tr>
+                        <td colspan="6" class="text-center py-4">
+                          <p class="text-gray">No products found. <a href="/products/add">Add your first product</a>.</p>
+                        </td>
+                      </tr>
+                    <% } else { %>
+                      <% products.forEach(product => { %>
+                        <tr data-id="<%= product._id %>">
+                          <td>
+                            <div class="product">
+                              <div class="image">
+                                <img src="<%= product.productImg || product.img %>" alt="<%= product.title %>" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;" />
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-sm fw-bold"><%= product.title %></p>
+                          </td>
+                          <td class="min-width">
+                            <p class="text-sm"><%= product.description ? product.description.substring(0, 60) + (product.description.length > 60 ? '...' : '') : '-' %></p>
+                          </td>
+                          <td class="min-width">
+                            <% if (product.category && product.category.categoryTitle) { %>
+                              <span class="status-btn primary-btn"><%= product.category.categoryTitle %></span>
+                            <% } else { %>
+                              <span class="text-sm text-gray">—</span>
+                            <% } %>
+                          </td>
+                          <td class="min-width">
+                            <p class="text-sm text-success fw-bold">$<%= product.price %></p>
+                          </td>
+                          <td>
+                            <div class="action">
+                              <button data-delete-id="<%= product._id %>" class="delete-product-btn text-danger" title="Delete">
+                                <i class="lni lni-trash-can"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      <% }) %>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ========== section end ========== -->
+
+<%- include('partials/footer') %>

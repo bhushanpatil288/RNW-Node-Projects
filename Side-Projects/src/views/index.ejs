@@ -1,32 +1,110 @@
-<%- include('partials/head', { title: 'Practice Store' }) %>
-<%- include('partials/navbar', {
-    eyebrow: 'Practice Project',
-    title: 'Practice Store',
-    showAddProduct: isLoggedIn,
-    showAuthAction: !isLoggedIn,
-    authHref: '/auth/login',
-    authLabel: 'Sign In / Log In'
-}) %>
+<%- include('partials/head', { title: 'Dashboard' }) %>
 
-<main class="mx-auto flex max-w-7xl flex-col items-center px-4 py-16 text-center sm:px-6 lg:px-8">
-        <div class="max-w-3xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm sm:p-12">
-            <p class="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600">Auth + Products Demo</p>
-            <h2 class="mt-4 text-3xl font-semibold text-slate-900 sm:text-5xl">
-                Sign in, browse products, and add what you love.
-            </h2>
-            <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-                This is a simple practice project built to learn authentication, protected routes, and product browsing with a modern UI.
-            </p>
+<%- include('partials/sidebar', { activePage: 'dashboard' }) %>
+<%- include('partials/header', { user: typeof user !== 'undefined' ? user : null }) %>
 
-            <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <a href="/auth/login" class="rounded-xl bg-slate-900 px-6 py-3 font-medium text-white transition hover:bg-slate-700">
-                    Get Started
-                </a>
-                <a href="/products" class="rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-100">
-                    View Products
-                </a>
+  <!-- ========== section start ========== -->
+  <section class="section">
+    <div class="container-fluid">
+      <div class="title-wrapper pt-30">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="title">
+              <h2>Dashboard</h2>
             </div>
+          </div>
+          <div class="col-md-6">
+            <div class="breadcrumb-wrapper">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
 
-<%- include('partials/footer', { message: 'This is a practice project for learning sign-in and login flow, product viewing, and adding items to a cart.' }) %>
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+          <div class="icon-card mb-30">
+            <div class="icon purple">
+              <i class="lni lni-cart-full"></i>
+            </div>
+            <div class="content">
+              <h6 class="mb-10">Products</h6>
+              <h3 class="text-bold mb-10">Manage</h3>
+              <a href="/products" class="text-sm text-primary">View All →</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+          <div class="icon-card mb-30">
+            <div class="icon success">
+              <i class="lni lni-plus"></i>
+            </div>
+            <div class="content">
+              <h6 class="mb-10">Add New</h6>
+              <h3 class="text-bold mb-10">Product</h3>
+              <a href="/products/add" class="text-sm text-primary">Add Now →</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+          <div class="icon-card mb-30">
+            <div class="icon primary">
+              <i class="lni lni-user"></i>
+            </div>
+            <div class="content">
+              <h6 class="mb-10">Profile</h6>
+              <h3 class="text-bold mb-10">Account</h3>
+              <a href="/user/profile" class="text-sm text-primary">View Profile →</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+          <div class="icon-card mb-30">
+            <div class="icon orange">
+              <i class="lni lni-cog"></i>
+            </div>
+            <div class="content">
+              <h6 class="mb-10">Admin</h6>
+              <h3 class="text-bold mb-10">Panel</h3>
+              <p class="text-sm text-gray">v1.0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== Welcome Card ========== -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card-style mb-30">
+            <div class="title d-flex flex-wrap justify-content-between align-items-center">
+              <div class="left">
+                <h6 class="text-medium mb-10">Welcome to the Admin Panel</h6>
+              </div>
+            </div>
+            <p class="text-sm text-gray">
+              This is your admin dashboard. Use the sidebar to navigate to products management, add new products, or manage your profile.
+              <% if (!isLoggedIn) { %>
+                <a href="/auth/login" class="text-primary">Sign in</a> to get full access.
+              <% } %>
+            </p>
+            <div class="mt-20">
+              <% if (isLoggedIn) { %>
+                <a href="/products" class="main-btn primary-btn btn-hover me-3">View Products</a>
+                <a href="/products/add" class="main-btn light-btn btn-hover">Add Product</a>
+              <% } else { %>
+                <a href="/auth/login" class="main-btn primary-btn btn-hover me-3">Sign In</a>
+                <a href="/auth/register" class="main-btn light-btn btn-hover">Create Account</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ========== section end ========== -->
+
+<%- include('partials/footer') %>

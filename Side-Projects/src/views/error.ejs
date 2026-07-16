@@ -1,27 +1,54 @@
 <%- include('partials/head', { title: 'Error ' + status }) %>
 
-<body class="min-h-screen bg-blue-50 flex items-top justify-center p-6">
+<%- include('partials/sidebar', { activePage: '' }) %>
+<%- include('partials/header', { user: null }) %>
 
-    <div class=" w-full rounded-2xl bg-white shadow-xl border border-blue-200 p-8">
-
-        <h1 class="text-4xl font-bold text-red-600">
-            Error <%= status %>
-        </h1>
-
-        <p class="mt-4 text-lg text-slate-700">
-            <%= message %>
-        </p>
-
-        <% if (stack) { %>
-            <div class="mt-8">
-                <h2 class="font-semibold text-slate-800 mb-2">
-                    Stack Trace
-                </h2>
-
-                <pre class="overflow-auto rounded-lg bg-slate-900 text-green-400 p-4 text-sm"><%= stack %></pre>
+  <!-- ========== section start ========== -->
+  <section class="section">
+    <div class="container-fluid">
+      <div class="title-wrapper pt-30">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="title">
+              <h2>Error</h2>
             </div>
-        <% } %>
+          </div>
+          <div class="col-md-6">
+            <div class="breadcrumb-wrapper">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Error <%= status %></li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card-style mb-30">
+            <div class="text-center mb-20">
+              <h1 style="font-size: 72px; color: #ea5455; font-weight: 700;"><%= status %></h1>
+              <h5 class="mt-10"><%= message %></h5>
+              <div class="mt-25">
+                <a href="/" class="main-btn primary-btn btn-hover">Go to Dashboard</a>
+              </div>
+            </div>
+
+            <% if (stack) { %>
+              <hr />
+              <h6 class="mb-10 mt-20">Stack Trace</h6>
+              <div style="background: #1e293b; color: #86efac; padding: 16px; border-radius: 8px; overflow: auto; font-size: 12px;">
+                <pre style="margin: 0; white-space: pre-wrap;"><%= stack %></pre>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+  <!-- ========== section end ========== -->
 
-<%- include('partials/footer', { message: 'Please return to the home page and try again.' }) %>
+<%- include('partials/footer') %>

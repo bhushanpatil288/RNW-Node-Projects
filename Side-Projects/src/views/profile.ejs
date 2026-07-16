@@ -1,75 +1,101 @@
 <%- include('partials/head', { title: 'Profile' }) %>
-<%- include('partials/navbar', {
-  eyebrow: 'Account',
-  title: 'Your Profile',
-  showAddProduct: true,
-  showAuthAction: false,
-  authHref: '/auth/login',
-  authLabel: 'Sign In'
-}) %>
 
-<main class="mx-auto flex min-h-[calc(100vh-220px)] max-w-7xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-  <section class="w-full max-w-3xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-    <div class="bg-gradient-to-r from-slate-900 to-slate-700 px-8 py-10 text-white">
-      <p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-300">Account Overview</p>
-      <h2 class="mt-3 text-3xl font-semibold">Welcome back, <%= user?.username || 'there' %></h2>
-      <p class="mt-2 text-sm text-slate-300">Manage your account details and keep exploring the store.</p>
-    </div>
+<%- include('partials/sidebar', { activePage: 'profile' }) %>
+<%- include('partials/header', { user: typeof user !== 'undefined' ? user : null }) %>
 
-    <div class="grid gap-6 p-8 md:grid-cols-[1.2fr_0.8fr]">
-      <div class="space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-        <div>
-          <p class="text-sm font-medium text-slate-500">Username</p>
-          <p class="mt-1 text-lg font-semibold text-slate-800"><%= user?.username || 'N/A' %></p>
-        </div>
-        <div>
-          <p class="text-sm font-medium text-slate-500">Email</p>
-          <p class="mt-1 text-lg font-semibold text-slate-800"><%= user?.email || 'N/A' %></p>
-        </div>
-        <div>
-          <p class="text-sm font-medium text-slate-500">User ID</p>
-          <p class="mt-1 break-all text-sm text-slate-600"><%= user?.id || 'N/A' %></p>
+  <!-- ========== section start ========== -->
+  <section class="section">
+    <div class="container-fluid">
+      <div class="title-wrapper pt-30">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="title">
+              <h2>Profile</h2>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="breadcrumb-wrapper">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="flex flex-col justify-between rounded-2xl border border-emerald-100 bg-emerald-50 p-6">
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600">Quick Actions</p>
-          <ul class="mt-4 space-y-3 text-sm text-slate-700">
-            <li>• Browse products</li>
-            <li>• Add a new listing</li>
-            <li>• Continue your shopping flow</li>
-          </ul>
+      <div class="row">
+        <!-- ========== User Info Card ========== -->
+        <div class="col-lg-4">
+          <div class="card-style mb-30">
+            <div class="text-center">
+              <div class="mb-20">
+                <img src="/assets/images/profile/profile-image.png" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;" />
+              </div>
+              <h5><%= user?.username || 'N/A' %></h5>
+              <p class="text-sm text-gray"><%= user?.email || 'N/A' %></p>
+              <hr />
+              <div class="text-start">
+                <p class="text-sm mb-10"><strong>User ID:</strong></p>
+                <p class="text-sm text-gray" style="word-break: break-all;"><%= user?.id || 'N/A' %></p>
+              </div>
+              <div class="text-start mt-15">
+                <p class="text-sm mb-10"><strong>Member Since:</strong></p>
+                <p class="text-sm text-gray"><%= user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A' %></p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="mt-6 flex flex-col gap-3">
-          <a href="/products" class="rounded-xl bg-slate-900 px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-slate-700">View Products</a>
-          <a href="/products/add" class="rounded-xl border border-slate-300 px-4 py-3 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-100">Add Product</a>
-        </div>
-      </div>
+        <!-- ========== Reset Password Form ========== -->
+        <div class="col-lg-8">
+          <div class="card-style mb-30">
+            <h6 class="mb-25">Reset Password</h6>
+            <p class="text-sm text-gray mb-25">An OTP will be sent to your email to verify the password change.</p>
+            <form action="/auth/reset-password" method="POST">
+              <div class="row">
+                <div class="col-12">
+                  <div class="input-style-1">
+                    <label>Current Password</label>
+                    <input type="password" name="passwordOld" placeholder="Enter current password" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-style-1">
+                    <label>New Password</label>
+                    <input type="password" name="passwordNew" placeholder="Enter new password" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-style-1">
+                    <label>Confirm New Password</label>
+                    <input type="password" name="passwordConfirm" placeholder="Confirm new password" required />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="button-group d-flex justify-content-end flex-wrap">
+                    <button type="submit" class="main-btn success-btn btn-hover">Reset Password</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
 
-      <div class="col-span-2 mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-        <h3 class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Reset Password</h3>
-        <form action="/auth/reset-password" method="POST" class="mt-4 grid gap-4 md:grid-cols-2">
-          <div class="flex flex-col gap-2 md:col-span-2">
-            <label for="passwordOld" class="text-sm font-medium text-slate-700">Current Password</label>
-            <input type="password" name="passwordOld" id="passwordOld" required class="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-slate-700 outline-none transition focus:border-emerald-500 focus:bg-white" />
+          <!-- ========== Quick Actions ========== -->
+          <div class="card-style mb-30">
+            <h6 class="mb-25">Quick Actions</h6>
+            <div class="d-flex flex-wrap gap-3">
+              <a href="/products" class="main-btn primary-btn btn-sm btn-hover">View Products</a>
+              <a href="/products/add" class="main-btn light-btn btn-sm btn-hover">Add Product</a>
+              <a href="/auth/logout" class="main-btn danger-btn btn-sm btn-hover">Logout</a>
+            </div>
           </div>
-          <div class="flex flex-col gap-2 md:col-span-2">
-            <label for="passwordNew" class="text-sm font-medium text-slate-700">New Password</label>
-            <input type="password" name="passwordNew" id="passwordNew" required class="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-slate-700 outline-none transition focus:border-emerald-500 focus:bg-white" />
-          </div>
-          <div class="flex flex-col gap-2 md:col-span-2">
-            <label for="passwordConfirm" class="text-sm font-medium text-slate-700">Confirm New Password</label>
-            <input type="password" name="passwordConfirm" id="passwordConfirm" required class="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-slate-700 outline-none transition focus:border-emerald-500 focus:bg-white" />
-          </div>
-          <div class="md:col-span-2">
-            <button type="submit" class="w-full rounded-xl bg-emerald-600 cursor-pointer px-4 py-3 text-sm font-medium text-white transition hover:bg-emerald-500">Reset Password</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </section>
-</main>
+  <!-- ========== section end ========== -->
 
-<%- include('partials/footer', { message: 'Your profile page keeps your account details and product actions in one place.' }) %>
+<%- include('partials/footer') %>

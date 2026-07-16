@@ -1,55 +1,81 @@
 <%- include('partials/head', { title: 'Add Product' }) %>
-<%- include('partials/navbar', {
-  eyebrow: 'Product Manager',
-  title: 'Add a New Product',
-  showAddProduct: false,
-  showAuthAction: false,
-  authHref: '/auth/login',
-  authLabel: 'Sign In'
-}) %>
 
-<main class="mx-auto flex min-h-[calc(100vh-220px)] max-w-7xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-  <section class="w-full max-w-2xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
-    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600">New Listing</p>
-    <h2 class="mt-4 text-3xl font-semibold text-slate-900">Create a product card</h2>
-    <p class="mt-3 text-base text-slate-600">
-      Add a polished product entry with an image, price, and description for the storefront.
-    </p>
+<%- include('partials/sidebar', { activePage: 'addProduct' }) %>
+<%- include('partials/header', { user: typeof user !== 'undefined' ? user : null }) %>
 
-    <form action="/products/add" method="POST" enctype="multipart/form-data" class="mt-8 space-y-5">
-      <div class="grid gap-5 md:grid-cols-2">
-        <div class="flex flex-col gap-2 md:col-span-2">
-          <label for="title" class="text-sm font-medium text-slate-700">Product Title</label>
-          <input type="text" name="title" id="title" required class="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-slate-700 outline-none transition focus:border-emerald-500 focus:bg-white" />
-        </div>
-
-        <div class="flex flex-col gap-2 md:col-span-2">
-          <label for="description" class="text-sm font-medium text-slate-700">Description</label>
-          <textarea name="description" id="description" rows="4" class="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-slate-700 outline-none transition focus:border-emerald-500 focus:bg-white"></textarea>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <label for="price" class="text-sm font-medium text-slate-700">Price</label>
-          <input type="number" name="price" id="price" min="0" step="0.01" required class="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-slate-700 outline-none transition focus:border-emerald-500 focus:bg-white" />
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <label for="category" class="text-sm font-medium text-slate-700">Category</label>
-          <input type="text" name="category" id="category" required class="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-slate-700 outline-none transition focus:border-emerald-500 focus:bg-white" />
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <label for="productImg" class="text-sm font-medium text-slate-700">Image</label>
-          <input type="file" name="productImg" id="productImg" required class="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-slate-700 outline-none transition focus:border-emerald-500 focus:bg-white" />
+  <!-- ========== section start ========== -->
+  <section class="section">
+    <div class="container-fluid">
+      <div class="title-wrapper pt-30">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="title">
+              <h2>Add Product</h2>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="breadcrumb-wrapper">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="/products">Products</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="flex flex-col gap-3 sm:flex-row sm:justify-end">
-        <a href="/products" class="rounded-xl border border-slate-300 px-5 py-3 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-100">Cancel</a>
-        <button type="submit" class="rounded-xl bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700">Save Product</button>
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card-style mb-30">
+            <h6 class="mb-25">Product Information</h6>
+            <form action="/products/add" method="POST" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-12">
+                  <div class="input-style-1">
+                    <label>Product Title</label>
+                    <input type="text" name="title" placeholder="Enter product title" required />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="input-style-1">
+                    <label>Description</label>
+                    <textarea name="description" placeholder="Enter product description" rows="4"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-style-1">
+                    <label>Price ($)</label>
+                    <input type="number" name="price" min="0" step="0.01" placeholder="0.00" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-style-1">
+                    <label>Category</label>
+                    <input type="text" name="category" placeholder="Enter category name" required />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="input-style-1">
+                    <label>Product Image</label>
+                    <input type="file" name="productImg" required />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="button-group d-flex justify-content-end flex-wrap pt-15">
+                    <a href="/products" class="main-btn light-btn btn-hover me-3">Cancel</a>
+                    <button type="submit" class="main-btn primary-btn btn-hover">Save Product</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </form>
+    </div>
   </section>
-</main>
+  <!-- ========== section end ========== -->
 
-<%- include('partials/footer', { message: 'Add new products with the same polished experience as the storefront.' }) %>
+<%- include('partials/footer') %>

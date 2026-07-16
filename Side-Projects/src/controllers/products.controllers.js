@@ -37,7 +37,9 @@ const productsPageController = async (req, res) => {
         
         res.render("products", {
             products: fallbackProducts,
-            isLoggedIn: Boolean(req.user)
+            categories: [],
+            isLoggedIn: Boolean(req.user),
+            user: req.user || null
         });
         return;
     }
@@ -45,13 +47,15 @@ const productsPageController = async (req, res) => {
     res.render("products", {
         products,
         categories,
-        isLoggedIn: Boolean(req.user)
+        isLoggedIn: Boolean(req.user),
+        user: req.user || null
     });
 }
 
 const addProductPageController = async (req, res) => {
     res.render("addProduct", {
-        title: "Add Product"
+        title: "Add Product",
+        user: req.user || null
     });
 }
 
@@ -115,7 +119,8 @@ const categoryFilterController = async (req, res) => {
     res.render("products", {
         products,
         categories,
-        isLoggedIn: Boolean(req.user)
+        isLoggedIn: Boolean(req.user),
+        user: req.user || null
     })
 }
 

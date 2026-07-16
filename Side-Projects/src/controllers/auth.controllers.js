@@ -4,6 +4,7 @@ const decryptToken = require("../utils/decryptToken.js");
 const Users = require("../models/user.model.js");
 const bcrypt = require("bcrypt");
 const otpGen = require("otp-generator");
+const { sendOtpEmail } = require("../utils/sendMail.js");
 
 // helper functions
 
@@ -153,6 +154,14 @@ const resetPasswordController = async (req, res) => {
 
     console.log(`OTP: ${user.otp}`);
 
+    // Send OTP via email
+    try {
+        await sendOtpEmail(user.email, user.otp);
+    } catch (err) {
+        console.error("Failed to send OTP email:", err.message);
+        // Still continue - OTP is logged to console as fallback
+    }
+
     await user.save();
 
     res.redirect("/auth/reset-password");
@@ -192,6 +201,89 @@ const verifyOtp = async (req, res) => {
     res.redirect("/user/profile");
 }
 
+// ============ FORGOT PASSWORD (Unauthenticated) ============
+
+const forgotPasswordPageController = (req, res) => {
+    res.render("forgotPassword");
+}
+
+const forgotPasswordController = async (req, res) => {
+    const { email } = req.body;
+
+    if (!email || email.trim() === "") {
+        throw new AppError(400, "Email is required");
+    }
+
+    const user = await Users.findOne({ email: email.toLowerCase() });
+
+    if (!user) {
+        throw new AppError(404, "No account found with this email");
+    }
+
+    const otp = generateOtp();
+    user.otp = otp;
+    user.candidatePassword = null; // Clear any existing candidate password
+
+    console.log(`Forgot Password OTP for ${email}: ${otp}`);
+
+    // Send OTP via email
+    try {
+        await sendOtpEmail(user.email, otp);
+    } catch (err) {
+        console.error("Failed to send OTP email:", err.message);
+        // Still continue - OTP is logged to console as fallback
+    }
+
+    await user.save();
+
+    res.render("forgotPasswordOtp", { email: user.email });
+}
+
+const forgotPasswordOtpPageController = (req, res) => {
+    res.render("forgotPasswordOtp", { email: "" });
+}
+
+const forgotPasswordVerifyOtpController = async (req, res) => {
+    const { email, otp, newPassword, confirmPassword } = req.body;
+
+    if (!email || !otp || !newPassword || !confirmPassword) {
+        throw new AppError(400, "All fields are required");
+    }
+
+    if (newPassword !== confirmPassword) {
+        throw new AppError(400, "Passwords do not match");
+    }
+
+    const user = await Users.findOne({ email: email.toLowerCase() });
+
+    if (!user) {
+        throw new AppError(404, "User not found");
+    }
+
+    if (!user.otp) {
+        throw new AppError(409, "No OTP was generated. Please request a new one.");
+    }
+
+    if (Number(user.otp) !== Number(otp)) {
+        user.otp = null;
+        await user.save();
+        throw new AppError(400, "Invalid OTP. Please request a new one.");
+    }
+
+    user.password = newPassword;
+    user.otp = null;
+    user.candidatePassword = null;
+
+    await user.save();
+
+    res.redirect("/auth/login");
+}
+
+const logoutController = (req, res) => {
+    res.clearCookie("token");
+    res.redirect("/auth/login");
+}
+
 module.exports = {
     registerPageController,
     registerController,
@@ -199,5 +291,10 @@ module.exports = {
     loginController,
     resetPasswordPageController,
     resetPasswordController,
-    verifyOtp
+    verifyOtp,
+    forgotPasswordPageController,
+    forgotPasswordController,
+    forgotPasswordOtpPageController,
+    forgotPasswordVerifyOtpController,
+    logoutController
 }

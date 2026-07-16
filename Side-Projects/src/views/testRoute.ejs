@@ -1,75 +1,62 @@
 <%- include('partials/head', { title: 'Server Online' }) %>
 
-<body class="min-h-screen select-none bg-gradient-to-br from-blue-50 via-sky-50 to-blue-100 flex items-center justify-center p-6">
+<%- include('partials/sidebar', { activePage: '' }) %>
+<%- include('partials/header', { user: null }) %>
 
-  <div class="w-full max-w-2xl rounded-3xl border border-blue-200 bg-white/90 backdrop-blur shadow-2xl shadow-blue-200/40">
-
-    <div class="p-10 text-center">
-
-      <div class="text-7xl mb-6">🖥️</div>
-
-      <span class="inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700">
-        <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-        Server Online
-      </span>
-
-      <h1 class="mt-6 text-4xl font-bold text-blue-700">
-        Express Server is Running
-      </h1>
-
-      <p class="mt-4 text-slate-600 leading-7">
-        Your Express application is running successfully. This page confirms that
-        your server, routing, and view engine are working correctly.
-      </p>
-
-      <div class="mt-8 rounded-2xl border border-blue-100 bg-blue-50 p-6 text-left">
-        <div class="grid gap-4 sm:grid-cols-2">
-
-          <div>
-            <p class="text-xs uppercase tracking-wide text-slate-500">
-              Status
-            </p>
-            <p class="mt-1 font-semibold text-green-600">
-              200 OK
-            </p>
+  <section class="section">
+    <div class="container-fluid">
+      <div class="title-wrapper pt-30">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="title">
+              <h2>Server Test</h2>
+            </div>
           </div>
-
-          <div>
-            <p class="text-xs uppercase tracking-wide text-slate-500">
-              Environment
-            </p>
-            <p class="mt-1 font-semibold text-slate-700">
-              Development
-            </p>
-          </div>
-
-          <div>
-            <p class="text-xs uppercase tracking-wide text-slate-500">
-              View Engine
-            </p>
-            <p class="mt-1 font-semibold text-slate-700">
-              EJS ✓
-            </p>
-          </div>
-
-          <div>
-            <p class="text-xs uppercase tracking-wide text-slate-500">
-              Health
-            </p>
-            <p class="mt-1 font-semibold text-green-600">
-              Healthy
-            </p>
-          </div>
-
         </div>
       </div>
 
-      <div class="mt-8 border-t border-blue-100 pt-6 text-sm text-slate-500">
-        🚀 Everything is configured correctly.
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card-style mb-30 text-center">
+            <div style="font-size: 72px; margin-bottom: 16px;">🖥️</div>
+
+            <span class="status-btn success-btn" style="display: inline-flex; align-items: center; gap: 8px;">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e; display: inline-block;"></span>
+              Server Online
+            </span>
+
+            <h3 class="mt-20">Express Server is Running</h3>
+
+            <p class="text-sm text-gray mt-15">
+              Your Express application is running successfully. This page confirms that
+              your server, routing, and view engine are working correctly.
+            </p>
+
+            <div class="row mt-25">
+              <div class="col-sm-3">
+                <p class="text-xs text-gray">Status</p>
+                <p class="text-sm fw-bold text-success">200 OK</p>
+              </div>
+              <div class="col-sm-3">
+                <p class="text-xs text-gray">Environment</p>
+                <p class="text-sm fw-bold">Development</p>
+              </div>
+              <div class="col-sm-3">
+                <p class="text-xs text-gray">View Engine</p>
+                <p class="text-sm fw-bold">EJS ✓</p>
+              </div>
+              <div class="col-sm-3">
+                <p class="text-xs text-gray">Health</p>
+                <p class="text-sm fw-bold text-success">Healthy</p>
+              </div>
+            </div>
+
+            <hr class="mt-25" />
+            <p class="text-sm text-gray mt-15">🚀 Everything is configured correctly.</p>
+          </div>
+        </div>
       </div>
-
     </div>
+  </section>
 
-  </div>
-
-<%- include('partials/footer', { message: 'Everything is configured correctly.' }) %>
+<%- include('partials/footer') %>
