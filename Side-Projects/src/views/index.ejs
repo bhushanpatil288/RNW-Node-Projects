@@ -1,84 +1,11 @@
 <%- include('partials/head', { title: 'Dashboard' }) %>
 
-<%- include('partials/sidebar', { activePage: 'dashboard' }) %>
-<%- include('partials/header', { user: typeof user !== 'undefined' ? user : null }) %>
-
   <!-- ========== section start ========== -->
-  <section class="section">
+  <section class="section mb-100 pb-100">
     <div class="container-fluid">
-      <div class="title-wrapper pt-30">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <div class="title">
-              <h2>Dashboard</h2>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="breadcrumb-wrapper">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                </ol>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xl-3 col-lg-4 col-sm-6">
-          <div class="icon-card mb-30">
-            <div class="icon purple">
-              <i class="lni lni-cart-full"></i>
-            </div>
-            <div class="content">
-              <h6 class="mb-10">Products</h6>
-              <h3 class="text-bold mb-10">Manage</h3>
-              <a href="/products" class="text-sm text-primary">View All →</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-4 col-sm-6">
-          <div class="icon-card mb-30">
-            <div class="icon success">
-              <i class="lni lni-plus"></i>
-            </div>
-            <div class="content">
-              <h6 class="mb-10">Add New</h6>
-              <h3 class="text-bold mb-10">Product</h3>
-              <a href="/products/add" class="text-sm text-primary">Add Now →</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-4 col-sm-6">
-          <div class="icon-card mb-30">
-            <div class="icon primary">
-              <i class="lni lni-user"></i>
-            </div>
-            <div class="content">
-              <h6 class="mb-10">Profile</h6>
-              <h3 class="text-bold mb-10">Account</h3>
-              <a href="/user/profile" class="text-sm text-primary">View Profile →</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-4 col-sm-6">
-          <div class="icon-card mb-30">
-            <div class="icon orange">
-              <i class="lni lni-cog"></i>
-            </div>
-            <div class="content">
-              <h6 class="mb-10">Admin</h6>
-              <h3 class="text-bold mb-10">Panel</h3>
-              <p class="text-sm text-gray">v1.0</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- ========== Welcome Card ========== -->
-      <div class="row">
-        <div class="col-lg-12">
+      <div class="row mt-100 pt-100 flex justify-content-center mb-100 pb-100">
+        <div class="col-lg-6">
           <div class="card-style mb-30">
             <div class="title d-flex flex-wrap justify-content-between align-items-center">
               <div class="left">

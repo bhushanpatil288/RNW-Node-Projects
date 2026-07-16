@@ -34,7 +34,7 @@ const productsPageController = async (req, res) => {
             }
         ];
 
-        
+
         res.render("products", {
             products: fallbackProducts,
             categories: [],
@@ -43,7 +43,7 @@ const productsPageController = async (req, res) => {
         });
         return;
     }
-    
+
     res.render("products", {
         products,
         categories,
@@ -71,7 +71,7 @@ const addProductController = async (req, res) => {
     const categoryExists = await Category.findOne({ categoryTitle: category });
 
     if (!categoryExists) {
-        const catRes = await Category.create({ categoryTitle: category });   
+        const catRes = await Category.create({ categoryTitle: category });
         await Product.create({
             title,
             description,
@@ -114,7 +114,7 @@ const removeProductController = async (req, res) => {
 };
 
 const categoryFilterController = async (req, res) => {
-    const products = await Product.find({ category: req.params.id}).lean().populate("category");
+    const products = await Product.find({ category: req.params.id }).lean().populate("category");
     const categories = await Category.find().lean();
     res.render("products", {
         products,
@@ -122,6 +122,56 @@ const categoryFilterController = async (req, res) => {
         isLoggedIn: Boolean(req.user),
         user: req.user || null
     })
+};
+
+const dashboardPageController = async (req, res) => {
+    const products = await Product.find().lean().populate("category");
+    const categories = await Category.find().lean();
+
+    if (!products.length) {
+        const fallbackProducts = [
+            {
+                title: "Aurora Headphones",
+                description: "Immersive sound with deep bass and all-day comfort.",
+                price: 129,
+                img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80"
+            },
+            {
+                title: "Luna Smart Watch",
+                description: "Track fitness goals and stay connected on the go.",
+                price: 199,
+                img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=900&q=80"
+            },
+            {
+                title: "Nova Backpack",
+                description: "A durable daily bag designed for work, travel, and weekends.",
+                price: 89,
+                img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80"
+            },
+            {
+                title: "Orbit Speaker",
+                description: "Portable Bluetooth speaker with rich sound and long battery life.",
+                price: 74,
+                img: "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?auto=format&fit=crop&w=900&q=80"
+            }
+        ];
+
+
+        res.render("products", {
+            products: fallbackProducts,
+            categories: [],
+            isLoggedIn: Boolean(req.user),
+            user: req.user || null
+        });
+        return;
+    }
+
+    res.render("dashboard", {
+        products,
+        categories,
+        isLoggedIn: Boolean(req.user),
+        user: req.user || null
+    });
 }
 
 module.exports = {
@@ -129,5 +179,6 @@ module.exports = {
     addProductPageController,
     addProductController,
     removeProductController,
-    categoryFilterController
+    categoryFilterController,
+    dashboardPageController
 }
