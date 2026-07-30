@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const required = ["PORT", "BASE_URL", "MONGO_URI", "NODE_ENV", "JWT_SECRET"];
+const required = ["PORT", "BASE_URL", "MONGO_URI", "NODE_ENV", "JWT_SECRET", "SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS"];
 
 for (const key of required) {
     if (!process.env[key]) {
