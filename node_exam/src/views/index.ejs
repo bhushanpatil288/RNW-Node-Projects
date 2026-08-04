@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog App</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+        <%- include('partials/navbar', { user }) %>
+
+        <% if (success) { %>
+            <div class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700"><%= success %></div>
+        <% } %>
+
+        <% if (error) { %>
+            <div class="mb-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700"><%= error %></div>
+        <% } %>
+
+        <section class="mb-8 rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
+            <h1 class="text-3xl font-semibold tracking-tight">Welcome to the Blog App</h1>
+            <p class="mt-2 text-slate-600">Share ideas, read stories, and manage your own posts in one place.</p>
+        </section>
+
+        <% if (user) { %>
+            <form class="mb-8 rounded-2xl bg-slate-200 p-6 text-white shadow-lg" action="/blog/create-post" method="post">
+                <h2 class="mb-4 text-xl font-semibold text-black">Create a New Blog Post</h2>
+                <div class="space-y-4">
+                    <input class="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900" type="text" name="title" placeholder="Title" required />
+                    <textarea class="min-h-32 w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900" name="content" placeholder="Content" required></textarea>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button class="rounded-lg bg-sky-500 px-4 py-2 font-medium text-white transition hover:bg-sky-600" type="submit">Create Post</button>
+                </div>
+            </form>
+        <% } else { %>
+            <div class="mb-8 rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm">
+                <p class="text-slate-600">Please <a href="/login" class="font-medium text-sky-600">login</a> or <a href="/register" class="font-medium text-sky-600">register</a> to create and manage posts.</p>
+            </div>
+        <% } %>
+
+        <div class="mb-4 flex items-center justify-between">
+            <h2 class="text-2xl font-semibold">All Blog Posts</h2>
+        </div>
+
+        <% if (articles && articles.length > 0) { %>
+            <ul class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                <% articles.forEach(article => { %>
+                    <li class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold"><%= article.title %></h3>
+                        <p class="mt-2 text-sm leading-6 text-slate-600"><%= article.content %></p>
+                        <div class="mt-4 text-sm text-slate-500">
+                            <p>Author: <span class="font-medium text-slate-700"><%= article.author.username %></span></p>
+                            <p class="mt-1">Created At: <%= article.createdAt.toLocaleString() %></p>
+                        </div>
+
+                        <% const articleAuthorId = article.author && typeof article.author === 'object' ? (article.author._id || article.author) : article.author; %>
+                        <% const isAuthor = user && articleAuthorId && String(articleAuthorId) === String(user._id); %>
+
+                        <% if (isAuthor) { %>
+                            <form action="/blog/<%= article._id %>/update" method="post" class="mt-4 space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                                <input type="text" name="title" value="<%= article.title %>" required class="w-full rounded-lg border border-slate-300 px-3 py-2" />
+                                <textarea name="content" required class="min-h-24 w-full rounded-lg border border-slate-300 px-3 py-2"><%= article.content %></textarea>
+                                <div class="flex justify-center">
+                                    <button type="submit" class="rounded-lg bg-sky-500 px-3 py-2 text-sm font-medium text-white hover:bg-sky-600">Update</button>
+                                </div>
+                            </form>
+
+                            <div class="flex justify-center">
+                                <form class="cursor-pointer" action="/blog/<%= article._id %>/delete" method="post" class="mt-3">
+                                    <button type="submit" class="rounded-lg bg-rose-500 px-3 py-2 text-sm font-medium text-white hover:bg-rose-600">Delete</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <div class="rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-center text-slate-500">No blog posts available.</div>
+        <% } %>
+    </div>
+</body>
+</html>
